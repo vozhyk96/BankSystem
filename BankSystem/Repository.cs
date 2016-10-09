@@ -10,6 +10,17 @@ namespace BankSystem
 {
     public class Repository
     {
+
+        static public ApplicationUser FindUserById(string id)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                ApplicationUser user = db.Users.Find(id);
+                return user;
+          
+            }
+        }
+
         static public ApplicationUser GetUser(string id)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -68,6 +79,19 @@ namespace BankSystem
                 db.SaveChanges();
             }
 
+        }
+
+        static public void ChangeUserAdmin(string userId)
+        {
+            
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                ApplicationUser user = db.Users.Find(userId);
+                if (user.isAdmin)
+                    user.isAdmin = false;
+                else user.isAdmin = true;
+                db.SaveChanges();
+            }
         }
     }
 }

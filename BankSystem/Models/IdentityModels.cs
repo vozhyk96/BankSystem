@@ -15,6 +15,7 @@ namespace BankSystem.Models
         public byte[] Image { get; set; }
         public string phone { get; set; }
         public string adress { get; set; }
+        public bool isAdmin { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Обратите внимание, что authenticationType должен совпадать с типом, определенным в CookieAuthenticationOptions.AuthenticationType

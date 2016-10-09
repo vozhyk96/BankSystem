@@ -499,6 +499,7 @@ namespace BankSystem.Controllers
             model.adress = "";
             model.picture = new Picture(user.Image);
             model.id = user.Id;
+            model.isAdmin = user.isAdmin;
             if (user.surname != null)
             {
                 model.surname = user.surname;
@@ -529,6 +530,7 @@ namespace BankSystem.Controllers
             {
                 model.isUser = true;
             }
+            
 
             return model;
         }
@@ -545,6 +547,13 @@ namespace BankSystem.Controllers
             ViewUser model = GetViewModel(user);
             return View(model);
             
+        }
+
+        [HttpPost]
+        public ActionResult ChangeAdmin(string userId)
+        {
+            Repository.ChangeUserAdmin(userId);
+            return RedirectToAction("UserPage", "Account", new { id = userId });
         }
 
         #region Вспомогательные приложения

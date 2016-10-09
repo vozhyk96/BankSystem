@@ -15,6 +15,7 @@ namespace BankSystem.Models.ViewModels
         public string adress { get; set; }
         public bool HasPassword { get; set; }
         public bool isUser { get; set; }
+        public bool isAdmin { get; set; }
         public Picture picture { get; set; }
 
     }
