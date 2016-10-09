@@ -1,0 +1,125 @@
+﻿@model BankSystem.Models.ViewModels.ViewUser
+@{
+    ViewBag.Title = "Страница пользователя";
+}
+<div align="center"><h2>@ViewBag.Title.</h2></div>
+<style>
+    .col {
+        width: 700px; /* Ширина блока */
+        padding: 10px; /* Поля */
+        word-wrap: break-word;
+    }
+</style>
+<style>
+    hr {
+        border: none;
+        background-color: gray;
+        height: 1px;
+    }
+</style>
+<div class="row">
+    <hr>
+    <div class="col-sm-8">
+        @if (Model.picture.Image != null)
+            {
+            <td>
+                @Html.Raw(Model.picture.HtmlRaw
+                        + Convert.ToBase64String(Model.picture.Image) + "\" />")
+            </td>
+        }
+        <br>
+        @using (Html.BeginForm("Create", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <input type="hidden" name="modelId" value=@Model.id />
+            @Html.ValidationSummary(true)
+            <fieldset>
+                @if (Model.isUser)
+                {
+                    <div class="editor-field">
+                        <input type="file" name="uploadImage" class="btn btn-default" />
+                    </div>
+
+                            <p>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Добавить" class="btn btn-success" />
+                                    </div>
+                                </div>
+                            </p>
+                }
+            </fieldset>
+        }
+        @using (Html.BeginForm("Delete", "Account"))
+            {
+                if ((Model.isUser) || (User.IsInRole("admin")))
+                {
+                <div class="form-group">
+                    <input type="hidden" name="id" value=@Model.id />
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Удалить" class="btn btn-danger" />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="col-sm-4">
+        <p class="text-success">@ViewBag.StatusMessage</p>
+        <div>
+            <h4>Личные данные</h4>
+            <dl class="dl-horizontal">
+                @if (Model.isUser)
+            {
+                    <dt>Пароль:</dt>
+                    <dd>
+                        [
+                        @if (Model.HasPassword)
+                        {
+                            @Html.ActionLink("Изменить пароль", "ChangePassword", "Manage")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Создать пароль", "SetPassword", "Manage")
+                        }
+                        ]
+                    </dd>
+                }
+                <dt>Фамилия:</dt>
+                <dd>
+                    @Model.surname
+                </dd>
+                <dt>Имя:</dt>
+                <dd>
+                    @Model.name
+                </dd>
+                <dt>Отчество:</dt>
+                <dd>
+                    @Model.patronymic
+                </dd>
+                <dt>Номер телефона:</dt>
+                <dd>
+                    @Model.phone
+                </dd>
+                <dt>Адрес:</dt>
+                <dd>
+                    @Model.adress
+                </dd>
+            </dl>
+            @if ((Model.isUser) || (User.IsInRole("admin")))
+            {
+                using (Html.BeginForm("ChangeData", "Account", FormMethod.Get))
+                {
+                    <input type="hidden" name="modelId" value=@Model.id />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="ButtonChange" type="submit" class="btn btn-default" value="Изменить данные" />
+                        </div>
+                    </div>
+                }
+            }
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+<hr>
