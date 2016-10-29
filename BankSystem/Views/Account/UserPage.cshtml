@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using BankSystem.Models.DbModels;
 @model BankSystem.Models.ViewModels.ViewUser
 @{
     ViewBag.Title = "Страница пользователя";
@@ -143,5 +144,107 @@
         </div>
     </div>
     }
+}
+@if (Model.id == User.Identity.GetUserId())
+{
+    using (Html.BeginForm("CreateNewCard", "Account", FormMethod.Get))
+    {
+    <div class="form-group">
+        <input type="hidden" name="userId" value=@Model.id />
+        <div class="col-md-offset-2 col-md-10">
+            <input id="ButtonChange" type="submit" class="btn btn-default" value="Создать новую карточку" />
+        </div>
+    </div>
+    }
+}
+Карточки пользователя
+@foreach (Card card in Repository.GetCardsOfUser(Model.id))
+{ <br>
+    <div class="thumbnail">
+        <div class="col">
+            <dl class="dl-horizontal">
+                <dt>Номер счёта:</dt>
+                <dd>
+                    @card.AccountId
+                </dd>
+                <dt>Колличество денег:</dt>
+                <dd>
+                    @Repository.GetAccountById(card.AccountId).money
+                </dd>
+                
+                @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
+                {
+                    using (Html.BeginForm("AddMoney", "Account"))
+                    {
+                        <input type="hidden" name="userId" value=@Model.id />
+                        <input type="hidden" name="id" value=@card.id />
+                        <input id="Text1" type="text" name="add"/>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="ButtonChange" type="submit" class="btn btn-default" value="Зачислить" />
+                            </div>
+                        </div>
+                    }
+                    using (Html.BeginForm("RemoveMoney", "Account"))
+                    {
+                        <input type="hidden" name="userId" value=@Model.id />
+                        <input type="hidden" name="id" value=@card.id />
+                        <input id="Text1" type="text" name="rem" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="ButtonChange" type="submit" class="btn btn-default" value="Снять" />
+                            </div>
+                        </div>
+                    }
+
+                }
+
+                @using (Html.BeginForm("RemoveCard", "Account"))
+                {
+                <input type="hidden" name="userId" value=@Model.id />
+                <input type="hidden" name="id" value=@card.id />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="ButtonChange" type="submit" class="btn btn-default" value="Удалить карточку" />
+                    </div>
+                </div>
+                }
+
+            </dl>
+        </div>
+    </div>
+}
+----------------------------------------------------------------------------------
+Счета
+@foreach (BankAccount acc in Repository.GetAccsOfUser(Model.id))
+{ <br>
+    <div class="thumbnail">
+        <div class="col">
+            <dl class="dl-horizontal">
+                <dt>Номер счёта:</dt>
+                <dd>
+                    @acc.id
+                </dd>
+                <dt>Колличество денег:</dt>
+                <dd>
+                    @acc.money
+                </dd>
+                @if ((acc.isNone)&&(acc.money == 0))
+                {
+                    using (Html.BeginForm("RemoveBAcc", "Account"))
+                    {
+                        <input type="hidden" name="userId" value=@Model.id />
+                        <input type="hidden" name="id" value=@acc.id />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="ButtonChange" type="submit" class="btn btn-default" value="Удалить счёт" />
+                            </div>
+                        </div>
+                    }
+                }
+
+            </dl>
+        </div>
+    </div>
 }
 <hr>

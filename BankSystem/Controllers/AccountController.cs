@@ -12,6 +12,7 @@ using BankSystem.Models;
 using BankSystem.Models.ViewModels;
 using System.Drawing;
 using System.IO;
+using BankSystem.Models.DbModels;
 
 namespace BankSystem.Controllers
 {
@@ -553,6 +554,54 @@ namespace BankSystem.Controllers
         public ActionResult ChangeAdmin(string userId)
         {
             Repository.ChangeUserAdmin(userId);
+            return RedirectToAction("UserPage", "Account", new { id = userId });
+        }
+
+        [HttpGet]
+        public ActionResult CreateNewCard(string userId)
+        {
+            Card model = new Card();
+            model.UserId = userId;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewCard(Card card)
+        {
+            Repository.CreateCard(card);
+            return RedirectToAction("UserPage", "Account", new { id = card.UserId });
+        }
+
+        public ActionResult AddMoney(string userId, int id, string add)
+        {
+            int iadd;
+            if(Int32.TryParse(add,out iadd))
+            {
+                Repository.AddMoney(id,iadd);
+            }
+            return RedirectToAction("UserPage", "Account", new { id = userId });
+        }
+
+        public ActionResult RemoveMoney(string userId, int id, string rem)
+        {
+            int iadd;
+            if (Int32.TryParse(rem, out iadd))
+            {
+                int irem = iadd * (-1);
+                Repository.AddMoney(id, irem);
+            }
+            return RedirectToAction("UserPage", "Account", new { id = userId });
+        }
+
+        public ActionResult RemoveCard(string userId, int id)
+        {
+            Repository.DeleteCard(id);
+            return RedirectToAction("UserPage", "Account", new { id = userId });
+        }
+
+        public ActionResult RemoveBAcc(string userId, int id)
+        {
+            Repository.DeleteBankAccount(id);
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
 

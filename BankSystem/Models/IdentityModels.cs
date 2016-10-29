@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using BankSystem.Models.DbModels;
 
 namespace BankSystem.Models
 {
@@ -36,5 +37,7 @@ namespace BankSystem.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Card> Card { get; set; }
+        public DbSet<BankAccount> BankAccount { get; set; }
     }
 }
