@@ -132,6 +132,13 @@ namespace BankSystem
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
+                if (acc.percent == 0)
+                {
+                    if (!acc.isCredit)
+                        acc.percent = 2;
+                    else acc.percent = 20;
+                }
+                acc.LastChanging = DateTime.Now;
                 db.BankAccount.Add(acc);
                 db.SaveChanges();
                 int id = acc.id;
@@ -147,7 +154,10 @@ namespace BankSystem
                 foreach (var card in db.Card)
                 {
                     if (card.UserId == UserId)
+                    {
+                        AddPercent(card.AccountId, card.id);
                         result.Add(card);
+                    }
                 }
                 return result;
             }
@@ -161,9 +171,36 @@ namespace BankSystem
                 foreach (var acc in db.BankAccount)
                 {
                     if (acc.UserId == UserId)
+                    {
                         result.Add(acc);
+                    }
                 }
                 return result;
+            }
+        }
+
+        static private void AddPercent(int id, int cardid)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                BankAccount acc = db.BankAccount.Find(id);
+                while (acc.LastChanging.AddDays(1) < DateTime.Now)
+                {
+                    double add = acc.money * acc.percent / 365 / 100;
+                    AddMoney(cardid, add);
+                    acc.LastChanging = acc.LastChanging.AddDays(1);
+                }
+                ChangeAcc(acc.id, acc.LastChanging);
+            }
+        }
+
+        static private void ChangeAcc(int id, DateTime date)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                BankAccount acc = db.BankAccount.Find(id);
+                acc.LastChanging = date;
+                db.SaveChanges();
             }
         }
 
@@ -185,7 +222,7 @@ namespace BankSystem
             }
         }
 
-        static public void AddMoney(int id, int add)
+        static public void AddMoney(int id, double add)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -215,6 +252,40 @@ namespace BankSystem
                 BankAccount acc = db.BankAccount.Find(id);
                 db.BankAccount.Remove(acc);
                 db.SaveChanges();
+            }
+        }
+
+        static public void ChangePercent(int id, double per)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                BankAccount acc = db.BankAccount.Find(id);
+                acc.percent = per;
+                db.SaveChanges();
+            }
+        }
+
+        static public void OpenCredit(BankAccount acc, int accid)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                acc.isCredit = true;
+                if (acc.money > 0)
+                    acc.money *= -1;
+                CreateBankAccount(acc);
+                if (accid != 0)
+                {
+                    BankAccount account = db.BankAccount.Find(accid);
+                    account.money += acc.money;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    BankAccount account = new BankAccount();
+                    account.money = acc.money;
+                    account.UserId = acc.UserId;
+                    CreateBankAccount(account);
+                }
             }
         }
     }

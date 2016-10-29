@@ -237,6 +237,18 @@
     <Compile Include="Migrations\201610291453349_m8.Designer.cs">
       <DependentUpon>201610291453349_m8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610291610298_m9.cs" />
+    <Compile Include="Migrations\201610291610298_m9.Designer.cs">
+      <DependentUpon>201610291610298_m9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610292055022_m10.cs" />
+    <Compile Include="Migrations\201610292055022_m10.Designer.cs">
+      <DependentUpon>201610292055022_m10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610292112234_m11.cs" />
+    <Compile Include="Migrations\201610292112234_m11.Designer.cs">
+      <DependentUpon>201610292112234_m11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DbModels\BankAccount.cs" />
@@ -313,6 +325,7 @@
     <Content Include="Views\Account\UserPage.cshtml" />
     <Content Include="Views\Account\ChangeData.cshtml" />
     <Content Include="Views\Account\CreateNewCard.cshtml" />
+    <Content Include="Views\Account\OpenCredit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,6 +365,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610291453349_m8.resx">
       <DependentUpon>201610291453349_m8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610291610298_m9.resx">
+      <DependentUpon>201610291610298_m9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610292055022_m10.resx">
+      <DependentUpon>201610292055022_m10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610292112234_m11.resx">
+      <DependentUpon>201610292112234_m11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

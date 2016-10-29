@@ -145,14 +145,27 @@
     </div>
     }
 }
+
 @if (Model.id == User.Identity.GetUserId())
 {
     using (Html.BeginForm("CreateNewCard", "Account", FormMethod.Get))
     {
+        <div class="form-group">
+            <input type="hidden" name="userId" value=@Model.id />
+            <div class="col-md-offset-2 col-md-10">
+                <input id="ButtonChange" type="submit" class="btn btn-default" value="Создать новую карточку" />
+            </div>
+        </div>
+    }
+}
+@if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
+{
+    using (Html.BeginForm("OpenCredit", "Account", FormMethod.Get))
+    {
     <div class="form-group">
         <input type="hidden" name="userId" value=@Model.id />
         <div class="col-md-offset-2 col-md-10">
-            <input id="ButtonChange" type="submit" class="btn btn-default" value="Создать новую карточку" />
+            <input id="ButtonChange" type="submit" class="btn btn-default" value="Открыть кредит" />
         </div>
     </div>
     }
@@ -168,10 +181,18 @@
                     @card.AccountId
                 </dd>
                 <dt>Колличество денег:</dt>
+                @if (@Repository.GetAccountById(card.AccountId).isCredit)
+                {
                 <dd>
                     @Repository.GetAccountById(card.AccountId).money
                 </dd>
-                
+                }
+                else
+                {
+                    <dd>
+                        @Repository.GetAccountById(card.AccountId).money
+                    </dd>
+                }
                 @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
                 {
                     using (Html.BeginForm("AddMoney", "Account"))
@@ -226,9 +247,40 @@
                     @acc.id
                 </dd>
                 <dt>Колличество денег:</dt>
+                @if (acc.isCredit)
+                {
                 <dd>
-                    @acc.money
+                   @acc.money
                 </dd>
+                }
+                else
+                {
+                    <dd>
+                        @acc.money
+                    </dd>
+                }
+                <dt>Годовой процент:</dt>
+                <dd>
+                    @acc.percent
+                </dd>
+                <dt>Последнее изменение:</dt>
+                <dd>
+                    @acc.LastChanging
+                </dd>
+                @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
+                {
+                    using (Html.BeginForm("ChangePercent", "Account"))
+                    {
+                        <input type="hidden" name="userId" value=@Model.id />
+                        <input type="hidden" name="id" value=@acc.id />
+                        <input id="Text1" type="text" name="per" />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="ButtonChange" type="submit" class="btn btn-default" value="Поменять процент" />
+                            </div>
+                        </div>
+                    }
+                }
                 @if ((acc.isNone)&&(acc.money == 0))
                 {
                     using (Html.BeginForm("RemoveBAcc", "Account"))
@@ -242,6 +294,7 @@
                         </div>
                     }
                 }
+                
 
             </dl>
         </div>

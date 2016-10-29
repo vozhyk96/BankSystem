@@ -214,3 +214,6 @@ D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSyst
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m6.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m7.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m8.resources
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m9.resources
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m10.resources
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m11.resources

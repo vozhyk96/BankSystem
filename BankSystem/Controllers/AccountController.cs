@@ -605,6 +605,31 @@ namespace BankSystem.Controllers
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
 
+        public ActionResult ChangePercent(string userId, int id, string per)
+        {
+            double iper;
+            if (Double.TryParse(per, out iper))
+            {
+                Repository.ChangePercent(id, iper);
+            }
+            return RedirectToAction("UserPage", "Account", new { id = userId });
+        }
+
+        [HttpGet]
+        public ActionResult OpenCredit(string userId)
+        {
+            BankAccount acc = new BankAccount();
+            acc.UserId = userId;
+            return (View(acc));
+        }
+
+        [HttpPost]
+        public ActionResult OpenCredit(BankAccount acc, int accid)
+        {
+            Repository.OpenCredit(acc, accid);
+            return RedirectToAction("UserPage", "Account", new { id = acc.UserId});
+        }
+
         #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         private const string XsrfKey = "XsrfId";
