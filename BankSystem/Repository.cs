@@ -288,5 +288,18 @@ namespace BankSystem
                 }
             }
         }
+
+        static public void transact(int n1, double money, int n2)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                Card c1 = db.Card.Find(n1);
+                Card c2 = db.Card.Find(n2);
+                AddMoney(n1, money * -1);
+                if (c1.UserId == c2.UserId)
+                    AddMoney(n2, money);
+                else AddMoney(n2, money - money * 0.1);
+            }
+        }
     }
 }

@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>transact</title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("transact", "Account", FormMethod.Post))
+                {
+                    
+            <div class="form-group">
+            "Номер карточки с которой совершается перевод"<input id="Text1" type="text" name="n1" />
+            "Сумма перевода"<input id="Text2" type="text" name="money" />
+            "Номер карточки на которую совершается перевод"<input id="Text3" type="text" name="n2" />
+            <div class="col-md-offset-2 col-md-10">
+                <input id="ButtonChange" type="submit" class="btn btn-default" value="Перевести" />
+            </div>
+        </div>
+        }
+
+    </div>
+</body>
+</html>

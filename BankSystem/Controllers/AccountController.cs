@@ -630,6 +630,19 @@ namespace BankSystem.Controllers
             return RedirectToAction("UserPage", "Account", new { id = acc.UserId});
         }
 
+        [HttpGet]
+        public ActionResult transact()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult transact(int n1,double money, int n2)
+        {
+            Repository.transact(n1, money, n2);
+            return RedirectToAction("UserPage", "Account", new { id = User.Identity.GetUserId() });
+        }
+
         #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         private const string XsrfKey = "XsrfId";

@@ -124,6 +124,18 @@
         </div>
     </div>
 </div>
+
+@if (User.Identity.GetUserId() == Model.id)
+{
+    using (Html.BeginForm("transact", "Account",FormMethod.Get))
+    {
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="ButtonChange" type="submit" class="btn btn-default" value="Перевести деньги" />
+        </div>
+    </div>
+        }
+    }
 @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin)&&(User.Identity.GetUserId() != Model.id))
 {
     string text;
@@ -176,6 +188,10 @@
     <div class="thumbnail">
         <div class="col">
             <dl class="dl-horizontal">
+                <dt>Номер карточки:</dt>
+                <dd>
+                    @card.id
+                </dd>
                 <dt>Номер счёта:</dt>
                 <dd>
                     @card.AccountId

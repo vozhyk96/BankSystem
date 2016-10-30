@@ -326,6 +326,7 @@
     <Content Include="Views\Account\ChangeData.cshtml" />
     <Content Include="Views\Account\CreateNewCard.cshtml" />
     <Content Include="Views\Account\OpenCredit.cshtml" />
+    <Content Include="Views\Account\transact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
