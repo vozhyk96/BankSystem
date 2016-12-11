@@ -61,22 +61,27 @@ namespace BankSystem
                 {
                     appuser.surname = user.surname;
                 }
+                else appuser.surname = "";
                 if (user.name != null)
                 {
                     appuser.name = user.name;
                 }
+                else appuser.name = "";
                 if (user.patronymic != null)
                 {
                     appuser.patronymic = user.patronymic;
                 }
+                else appuser.patronymic = "";
                 if (user.phone != null)
                 {
                     appuser.phone = user.phone;
                 }
+                else appuser.phone = "";
                 if (user.adress != null)
                 {
                     appuser.adress = user.adress;
                 }
+                else appuser.adress = "";
                 db.SaveChanges();
             }
 
@@ -276,13 +281,13 @@ namespace BankSystem
                 if (accid != 0)
                 {
                     BankAccount account = db.BankAccount.Find(accid);
-                    account.money += acc.money;
+                    account.money = account.money + (acc.money*(-1));
                     db.SaveChanges();
                 }
                 else
                 {
                     BankAccount account = new BankAccount();
-                    account.money = acc.money;
+                    account.money = acc.money*(-1);
                     account.UserId = acc.UserId;
                     CreateBankAccount(account);
                 }
@@ -299,6 +304,24 @@ namespace BankSystem
                 if (c1.UserId == c2.UserId)
                     AddMoney(n2, money);
                 else AddMoney(n2, money - money * 0.1);
+            }
+        }
+
+        static public List<ApplicationUser> FindUsers(string s)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<ApplicationUser> result = new List<ApplicationUser>();
+                foreach (var user in db.Users)
+                {
+                    if (s == "")
+                        result.Add(user);
+                    else if((user.name.Contains(s))||(user.surname.Contains(s))||(user.patronymic.Contains(s))||(user.Id.Contains(s))||(user.Email.Contains(s)))
+                    {
+                        result.Add(user);
+                    }
+                }
+                return (result);
             }
         }
     }

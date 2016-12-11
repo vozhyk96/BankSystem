@@ -13,6 +13,7 @@ using BankSystem.Models.ViewModels;
 using System.Drawing;
 using System.IO;
 using BankSystem.Models.DbModels;
+using System.Collections.Generic;
 
 namespace BankSystem.Controllers
 {
@@ -641,6 +642,12 @@ namespace BankSystem.Controllers
         {
             Repository.transact(n1, money, n2);
             return RedirectToAction("UserPage", "Account", new { id = User.Identity.GetUserId() });
+        }
+
+        public ActionResult FindUsers(string s = "")
+        {
+            List<ApplicationUser> model = Repository.FindUsers(s);
+            return View(model);
         }
 
         #region Вспомогательные приложения
