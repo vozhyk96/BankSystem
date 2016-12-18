@@ -39,5 +39,6 @@ namespace BankSystem.Models
         }
         public DbSet<Card> Card { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
+        public DbSet<DbTransact> Transact { get; set; }
     }
 }

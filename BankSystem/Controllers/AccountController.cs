@@ -579,6 +579,7 @@ namespace BankSystem.Controllers
             if(Int32.TryParse(add,out iadd))
             {
                 Repository.AddMoney(id,iadd);
+                Repository.AddTransact(id, 0, iadd);
             }
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
@@ -590,6 +591,7 @@ namespace BankSystem.Controllers
             {
                 int irem = iadd * (-1);
                 Repository.AddMoney(id, irem);
+                Repository.AddTransact(0, id, iadd);
             }
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
@@ -641,6 +643,7 @@ namespace BankSystem.Controllers
         public ActionResult transact(int n1,double money, int n2)
         {
             Repository.transact(n1, money, n2);
+            Repository.AddTransact(n2, n1, money);
             return RedirectToAction("UserPage", "Account", new { id = User.Identity.GetUserId() });
         }
 
@@ -650,6 +653,20 @@ namespace BankSystem.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult Transacts(byte byCard, string UserId = "", int CardId = 0)
+        {
+            List<DbTransact> model = new List<DbTransact>();
+            if (byCard == 1)
+                model = Repository.GetTransactsOfCard(CardId);
+            else model = Repository.GetTransactsOfUser(UserId);
+            return View(model);
+        }
+
+        /*public ActionResult Transacts(List<DbTransact> model, DateTime date)
+        {
+
+        }*/
         #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         private const string XsrfKey = "XsrfId";

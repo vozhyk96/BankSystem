@@ -170,6 +170,7 @@
         </div>
     }
 }
+
 @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
 {
     using (Html.BeginForm("OpenCredit", "Account", FormMethod.Get))
@@ -182,6 +183,18 @@
     </div>
     }
 }
+
+@using (Html.BeginForm("Transacts", "Account", FormMethod.Get))
+{
+<input type="hidden" name="byCard" value=0 />
+<input type="hidden" name="UserId" value=@Model.id />
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="ButtonChange" type="submit" class="btn btn-default" value="Посмотреть транзакции пользователя" />
+    </div>
+</div>
+                    }
+
 Карточки пользователя
 @foreach (Card card in Repository.GetCardsOfUser(Model.id))
 { <br>
@@ -245,6 +258,17 @@
                         <input id="ButtonChange" type="submit" class="btn btn-default" value="Удалить карточку" />
                     </div>
                 </div>
+                }
+
+                @using (Html.BeginForm("Transacts", "Account",FormMethod.Get))
+                {
+                    <input type="hidden" name="byCard" value=1 />
+                    <input type="hidden" name="CardId" value=@card.id />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="ButtonChange" type="submit" class="btn btn-default" value="Посмотреть транзакции карточки" />
+                        </div>
+                    </div>
                 }
 
             </dl>

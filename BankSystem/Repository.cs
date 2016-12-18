@@ -324,5 +324,62 @@ namespace BankSystem
                 return (result);
             }
         }
+
+        static public List<DbTransact> GetTransactsOfUser(string UserId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<DbTransact> result = new List<DbTransact>();
+                foreach (var transact in db.Transact)
+                {
+                    
+                    if((Repository.GetCardById((transact.CardInId)).UserId == UserId)|| (Repository.GetCardById((transact.CardOutId)).UserId == UserId))
+                    {
+                        result.Add(transact);
+                    }
+                }
+                result = SortByDate(result);
+                return result;
+            }
+        }
+
+        static public List<DbTransact> GetTransactsOfCard(int CardId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<DbTransact> result = new List<DbTransact>();
+                foreach (var transact in db.Transact)
+                {
+                    if ((transact.CardInId == CardId)||(transact.CardOutId == CardId))
+                    {
+                        result.Add(transact);
+                    }
+                }
+                result = SortByDate(result);
+                return result;
+            }
+        }
+
+        static private List<DbTransact> SortByDate(List<DbTransact> tr)
+        {
+            IEnumerable<DbTransact> qresult = tr.OrderBy(t => t.date);
+            qresult = qresult.Reverse();
+            tr = qresult.ToList();
+            return tr;
+        }
+
+        static public void AddTransact(int CardInId, int CardOutId, double money)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                DbTransact transact = new DbTransact();
+                transact.CardInId = CardInId;
+                transact.CardOutId = CardOutId;
+                transact.money = money;
+                transact.date = DateTime.Now;
+                db.Transact.Add(transact);
+                db.SaveChanges();
+            }
+        }
     }
 }
