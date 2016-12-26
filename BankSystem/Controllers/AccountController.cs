@@ -539,16 +539,20 @@ namespace BankSystem.Controllers
 
         public ActionResult UserPage(string id)
         {
-
-            ApplicationUser user = new ApplicationUser();
-            user = Repository.GetUser(id);
-            if (user == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                ApplicationUser user = new ApplicationUser();
+                user = Repository.GetUser(id);
+                if (user != null)
+                {
+                    if ((User.Identity.GetUserId() == id) || (Repository.GetUser(User.Identity.GetUserId()).isAdmin))
+                    {
+                        ViewUser model = GetViewModel(user);
+                        return View(model);
+                    }
+                }
             }
-            ViewUser model = GetViewModel(user);
-            return View(model);
-            
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

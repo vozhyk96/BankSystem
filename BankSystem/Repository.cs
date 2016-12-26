@@ -334,10 +334,26 @@ namespace BankSystem
                 List<DbTransact> result = new List<DbTransact>();
                 foreach (var transact in db.Transact)
                 {
-                    
-                    if((Repository.GetCardById((transact.CardInId)).UserId == UserId)|| (Repository.GetCardById((transact.CardOutId)).UserId == UserId))
+                    if (transact.CardInId == 0)
                     {
-                        result.Add(transact);
+                        if (Repository.GetCardById(transact.CardOutId).UserId == UserId)
+                        {
+                            result.Add(transact);
+                        }
+                    }
+                    else if (transact.CardOutId == 0)
+                    {
+                        if (Repository.GetCardById(transact.CardInId).UserId == UserId)
+                        {
+                            result.Add(transact);
+                        }
+                    }
+                    else
+                    {
+                        if ((Repository.GetCardById(transact.CardInId).UserId == UserId) || (Repository.GetCardById(transact.CardOutId).UserId == UserId))
+                        {
+                            result.Add(transact);
+                        }
                     }
                 }
                 result = SortByDate(result);
