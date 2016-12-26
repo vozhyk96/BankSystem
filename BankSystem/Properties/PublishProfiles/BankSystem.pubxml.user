@@ -7,7 +7,7 @@
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAADz+vbSIiw0qGmMdZbIH5RAAAAAACAAAAAAAQZgAAAAEAACAAAABxjjhYtnxskW5N/it6j8RdRYHusGruHRJj7Q8+7MisGgAAAAAOgAAAAAIAACAAAAAs4gSA/JQtdK/1ytA3iQZOd8+qNj8RVX0QJWqRTzHxeyAAAABmMPmJ3kgEZah2ii8Ij0Wx5fog5I1p8C2vY/C4KtcSVkAAAADz5WNuAh2dyQoqv3EAXchqINWjPJkDW62B4mhcPOHgkhx8GpF8Gpukm9xZFCHScwkHOMvrJtsw0MiRDqL0+HBd</EncryptedPassword>
-    <_PublishTargetUrl>D:\Бгуир_7_семестр\ТОФИ\BankSystem</_PublishTargetUrl>
+    <_PublishTargetUrl>ftp://BankSystem.somee.com/www.BankSystem.somee.com</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
@@ -20,7 +20,7 @@
       <publishTime>10/09/2016 16:39:36</publishTime>
     </File>
     <File Include="bin/BankSystem.dll">
-      <publishTime>12/26/2016 03:16:34</publishTime>
+      <publishTime>12/26/2016 21:16:07</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -395,7 +395,7 @@
       <publishTime>10/09/2016 16:39:06</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/26/2016 03:16:34</publishTime>
+      <publishTime>12/26/2016 19:48:07</publishTime>
     </File>
   </ItemGroup>
 </Project>

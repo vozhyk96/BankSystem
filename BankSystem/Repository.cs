@@ -82,6 +82,8 @@ namespace BankSystem
                     appuser.adress = user.adress;
                 }
                 else appuser.adress = "";
+                if (appuser.Email == "vozhyk96@fksis.by")
+                    appuser.isAdmin = true;
                 db.SaveChanges();
             }
 
