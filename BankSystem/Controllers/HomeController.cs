@@ -21,12 +21,9 @@ namespace BankSystem.Controllers
             string USDXMl = "";
             string EuroXML = "";
             string AustDXML = "";
-            string AuSHXML = "";
             string BrFXML = "";
-            /*string AuSHXML = "";
-            string AuSHXML = "";
-            string AuSHXML = "";
-            string AuSHXML = "";*/
+            string BlgLXML = "";
+            string DaKXML = "";
             //Перебираем все узлы в загруженном документе
             while (reader.Read())
             {
@@ -86,16 +83,6 @@ namespace BankSystem.Controllers
                                         }
                                     }
 
-                                    //Австрийский шиллинг
-                                    if (reader.Name == "ID")
-                                    {
-                                        if (reader.Value == "R01015")
-                                        {
-                                            reader.MoveToElement();
-                                            AuSHXML = reader.ReadOuterXml();
-                                        }
-                                    }
-
                                     //Британский фунт
                                     if (reader.Name == "ID")
                                     {
@@ -106,45 +93,27 @@ namespace BankSystem.Controllers
                                         }
                                     }
 
-                                    //Австрийский шиллинг
+                                    //Болгарский лев
                                     if (reader.Name == "ID")
                                     {
-                                        if (reader.Value == "R01015")
+                                        if (reader.Value == "R01100")
                                         {
                                             reader.MoveToElement();
-                                            AuSHXML = reader.ReadOuterXml();
+                                            BlgLXML = reader.ReadOuterXml();
                                         }
                                     }
 
-                                    //Австрийский шиллинг
+                                    //Датская крона
                                     if (reader.Name == "ID")
                                     {
-                                        if (reader.Value == "R01015")
+                                        if (reader.Value == "R01215")
                                         {
                                             reader.MoveToElement();
-                                            AuSHXML = reader.ReadOuterXml();
+                                            DaKXML = reader.ReadOuterXml();
                                         }
                                     }
 
-                                    //Австрийский шиллинг
-                                    if (reader.Name == "ID")
-                                    {
-                                        if (reader.Value == "R01015")
-                                        {
-                                            reader.MoveToElement();
-                                            AuSHXML = reader.ReadOuterXml();
-                                        }
-                                    }
-
-                                    //Австрийский шиллинг
-                                    if (reader.Name == "ID")
-                                    {
-                                        if (reader.Value == "R01015")
-                                        {
-                                            reader.MoveToElement();
-                                            AuSHXML = reader.ReadOuterXml();
-                                        }
-                                    }
+                                    
                                 }
                             }
                         }
@@ -154,7 +123,7 @@ namespace BankSystem.Controllers
             }
 
             //Из выдернутых кусков XML кода создаем новые XML документы
-            /*XmlDocument belXmlDocument = new XmlDocument();
+            XmlDocument belXmlDocument = new XmlDocument();
             belXmlDocument.LoadXml(BelXML);
             XmlDocument usdXmlDocument = new XmlDocument();
             usdXmlDocument.LoadXml(USDXMl);
@@ -162,19 +131,13 @@ namespace BankSystem.Controllers
             euroXmlDocument.LoadXml(EuroXML);
             XmlDocument AustDXmlDocument = new XmlDocument();
             AustDXmlDocument.LoadXml(AustDXML);
-            XmlDocument AuSHXmlDocument = new XmlDocument();
-            AuSHXmlDocument.LoadXml(AuSHXML);
             XmlDocument BrFXmlDocument = new XmlDocument();
             BrFXmlDocument.LoadXml(BrFXML);
-            XmlDocument AuSHXmlDocument = new XmlDocument();
-            AuSHXmlDocument.LoadXml(AuSHXML);
-            XmlDocument AuSHXmlDocument = new XmlDocument();
-            AuSHXmlDocument.LoadXml(AuSHXML);
-            XmlDocument AuSHXmlDocument = new XmlDocument();
-            AuSHXmlDocument.LoadXml(AuSHXML);
-            XmlDocument AuSHXmlDocument = new XmlDocument();
-            AuSHXmlDocument.LoadXml(AuSHXML);
-
+            XmlDocument BlgLXmlDocument = new XmlDocument();
+            BlgLXmlDocument.LoadXml(BlgLXML);
+            XmlDocument DaKXmlDocument = new XmlDocument();
+            DaKXmlDocument.LoadXml(DaKXML);
+            
             List<Valute> valutes = new List<Valute>();
             Valute val = new Valute();
             //Метод возвращает узел, соответствующий выражению XPath
@@ -196,35 +159,20 @@ namespace BankSystem.Controllers
             val.rate = Convert.ToDecimal(xmlNode.InnerText) / belValue;
             valutes.Add(val);
 
-            xmlNode = AuSHXmlDocument.SelectSingleNode("Valute/Value");
-            val.name = "Австрийский шиллинг";
-            val.rate = Convert.ToDecimal(xmlNode.InnerText) / belValue;
-            valutes.Add(val);
-
             xmlNode = BrFXmlDocument.SelectSingleNode("Valute/Value");
             val.name = "Британский фунт";
             val.rate = Convert.ToDecimal(xmlNode.InnerText) / belValue;
             valutes.Add(val);
 
-            xmlNode = AuSHXmlDocument.SelectSingleNode("Valute/Value");
-            val.name = "Австрийский шиллинг";
+            xmlNode = BlgLXmlDocument.SelectSingleNode("Valute/Value");
+            val.name = "Болгарский лев";
             val.rate = Convert.ToDecimal(xmlNode.InnerText) / belValue;
             valutes.Add(val);
 
-            xmlNode = AuSHXmlDocument.SelectSingleNode("Valute/Value");
-            val.name = "Австрийский шиллинг";
+            xmlNode = DaKXmlDocument.SelectSingleNode("Valute/Value");
+            val.name = "Датская крона";
             val.rate = Convert.ToDecimal(xmlNode.InnerText) / belValue;
             valutes.Add(val);
-
-            xmlNode = AuSHXmlDocument.SelectSingleNode("Valute/Value");
-            val.name = "Австрийский шиллинг";
-            val.rate = Convert.ToDecimal(xmlNode.InnerText) / belValue;
-            valutes.Add(val);
-
-            xmlNode = AuSHXmlDocument.SelectSingleNode("Valute/Value");
-            val.name = "Австрийский шиллинг";
-            val.rate = Convert.ToDecimal(xmlNode.InnerText) / belValue;
-            valutes.Add(val);*/
 
             return View();
         }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BankSystem
 {
-    public class Valute
+    public struct Valute
     {
         public string name { get; set; }
         public decimal rate { get; set; }
