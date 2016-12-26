@@ -205,9 +205,6 @@ D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSyst
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.InitialCreate.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m1.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m2.resources
-D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.csproj.GenerateResource.Cache
-D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.dll
-D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.pdb
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m3.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m4.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m5.resources
@@ -221,3 +218,6 @@ D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSyst
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m13.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m14.resources
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m15.resources
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.csproj.GenerateResource.Cache
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.dll
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.pdb

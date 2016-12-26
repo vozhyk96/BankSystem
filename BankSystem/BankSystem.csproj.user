@@ -8,6 +8,7 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>BankSystem.Models.ApplicationDbContext</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>BankSystem</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

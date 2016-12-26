@@ -1,0 +1,44 @@
+﻿@using BankSystem.Models.DbModels;
+@model List<DbTransact>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Транзакции</title>
+</head>
+<body>
+    <div> 
+        @foreach (DbTransact transact in Model)
+        {
+            <br>
+            <div class="thumbnail">
+                <div class="col">
+                    <dl class="dl-horizontal">
+                        <dd>
+                            Номер транзакции: @transact.id
+                        </dd>
+                        <dd>
+                            Номер карточки отправителя: @transact.CardInId
+                        </dd>
+                        <dd>
+                            Номер карточки получателя: @transact.CardOutId
+                        </dd>
+                        <dd>
+                            Сумма перевода: @transact.money
+                        </dd>
+                        <dd>
+                            Дата транзакции: @transact.date
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
