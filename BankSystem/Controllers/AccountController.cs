@@ -558,6 +558,7 @@ namespace BankSystem.Controllers
         [HttpPost]
         public ActionResult ChangeAdmin(string userId)
         {
+            
             Repository.ChangeUserAdmin(userId);
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
@@ -573,31 +574,48 @@ namespace BankSystem.Controllers
         [HttpPost]
         public ActionResult CreateNewCard(Card card)
         {
-            Repository.CreateCard(card);
-            return RedirectToAction("UserPage", "Account", new { id = card.UserId });
+            List<int> ids = Repository.GetAccIdsOfUser(card.UserId);
+            if ((card.AccountId != 0)&&(!ids.Contains(card.AccountId)))
+            {
+                ModelState.AddModelError("AccountId", "Такого счёта не существует!");
+            }
+            if (ModelState.IsValid)
+            {
+                Repository.CreateCard(card);
+                return RedirectToAction("UserPage", "Account", new { id = card.UserId });
+            }
+            ViewBag.Message = "Запрос не прошел валидацию";
+            return View(card);
+
         }
 
-        public ActionResult AddMoney(string userId, int id, string add)
+        [HttpGet]
+        public ActionResult ChangeMoney(int id, bool isAdd)
         {
-            int iadd;
-            if(Int32.TryParse(add,out iadd))
-            {
-                Repository.AddMoney(id,iadd);
-                Repository.AddTransact(id, 0, iadd);
-            }
-            return RedirectToAction("UserPage", "Account", new { id = userId });
+            ChangeMoney model = new ChangeMoney();
+            model.CardId = id;
+            model.isAdd = isAdd;
+            
+            return View(model);
         }
 
-        public ActionResult RemoveMoney(string userId, int id, string rem)
+        [HttpPost]
+        public ActionResult ChangeMoney(ChangeMoney res)
         {
-            int iadd;
-            if (Int32.TryParse(rem, out iadd))
+            if (res.money < 0)
             {
-                int irem = iadd * (-1);
-                Repository.AddMoney(id, irem);
-                Repository.AddTransact(0, id, iadd);
+                ModelState.AddModelError("money", "Нельзя брать отрицательную сумму!");
             }
-            return RedirectToAction("UserPage", "Account", new { id = userId });
+            if (ModelState.IsValid)
+            {
+                if (!res.isAdd)
+                    res.money *= -1;
+                Repository.AddMoney(res.CardId, res.money);
+                Repository.AddTransact(0, res.CardId, res.money);
+                return RedirectToAction("UserPage", "Account", new { id = Repository.GetCardById(res.CardId).UserId });
+            }
+            ViewBag.Message = "Запрос не прошел валидацию";
+            return View(res);
         }
 
         public ActionResult RemoveCard(string userId, int id)
@@ -606,20 +624,33 @@ namespace BankSystem.Controllers
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
 
+        [HttpGet]
         public ActionResult RemoveBAcc(string userId, int id)
         {
             Repository.DeleteBankAccount(id);
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
 
-        public ActionResult ChangePercent(string userId, int id, string per)
+        [HttpGet]
+        public ActionResult ChangePercent(string userId, int id)
         {
-            double iper;
-            if (Double.TryParse(per, out iper))
+            BankAccount acc = Repository.GetAccountById(id);
+            return View(acc);
+        }
+        [HttpPost]
+        public ActionResult ChangePercent(BankAccount acc)
+        {
+            if (acc.percent < 0)
             {
-                Repository.ChangePercent(id, iper);
+                ModelState.AddModelError("percent", "Процент не может быть отрицательным!");
             }
-            return RedirectToAction("UserPage", "Account", new { id = userId });
+            if (ModelState.IsValid)
+            {
+                Repository.ChangePercent(acc);
+                return RedirectToAction("UserPage", "Account", new { id = acc.UserId });
+            }
+            ViewBag.Message = "Запрос не прошел валидацию";
+            return View(acc);
         }
 
         [HttpGet]
@@ -633,8 +664,29 @@ namespace BankSystem.Controllers
         [HttpPost]
         public ActionResult OpenCredit(BankAccount acc, int accid)
         {
-            Repository.OpenCredit(acc, accid);
-            return RedirectToAction("UserPage", "Account", new { id = acc.UserId});
+            if(acc.money < 0)
+            {
+                ModelState.AddModelError("money", "Нельзя брать отрицательную сумму!");
+            }
+            if(acc.percent < 0)
+            {
+                ModelState.AddModelError("percent", "Процент не может быть отрицательным!");
+            }
+            if(ModelState.IsValid)
+            {
+                List<int> ids = Repository.GetAccIdsOfUser(acc.UserId);
+                if((accid != 0)&&(!ids.Contains(accid)))
+                {
+                    ModelState.AddModelError("UserPage", "Такого счёта не существует!");
+                }
+            }
+            if (ModelState.IsValid)
+            {
+                Repository.OpenCredit(acc, accid);
+                return RedirectToAction("UserPage", "Account", new { id = acc.UserId });
+            }
+            ViewBag.Message = "Запрос не прошел валидацию";
+            return View(acc);
         }
 
         [HttpGet]
@@ -644,11 +696,43 @@ namespace BankSystem.Controllers
         }
         
         [HttpPost]
-        public ActionResult transact(int n1,double money, int n2)
+        public ActionResult transact(ViewTransact transact)
         {
-            Repository.transact(n1, money, n2);
-            Repository.AddTransact(n2, n1, money);
-            return RedirectToAction("UserPage", "Account", new { id = User.Identity.GetUserId() });
+            
+            List<int> ids = Repository.GetIdsOfCards();
+            if (!ids.Contains(transact.CardInId))
+            {
+                ModelState.AddModelError("CardInId", "Такой карточки не существует!");
+            }
+            if (!ids.Contains(transact.CardOutId))
+            {
+                ModelState.AddModelError("CardOutId", "Такой карточки не существует!");
+            }
+            if (ModelState.IsValid)
+            {
+                BankAccount acc = Repository.GetAccountById(Repository.GetCardById(transact.CardOutId).AccountId);
+                if ((acc.isCredit) && (acc.money < 0))
+                {
+                    ModelState.AddModelError("money", "Вы не можете переводить деньги с кредитного счёта!");
+                }
+                if (transact.money > acc.money)
+                {
+                    ModelState.AddModelError("money", "Вы не можете отправлять больше денег, чем у вас есть!");
+                }
+                if (transact.money < 0)
+                {
+                    ModelState.AddModelError("money", "Значение должно быть положительным!");
+                }
+            }
+            if (ModelState.IsValid)
+            {
+
+                Repository.transact(transact.CardOutId, transact.money, transact.CardInId);
+                Repository.AddTransact(transact.CardInId, transact.CardOutId, transact.money);
+                return RedirectToAction("UserPage", "Account", new { id = User.Identity.GetUserId() });
+            }
+            ViewBag.Message = "Запрос не прошел валидацию";
+            return View(transact);
         }
 
         public ActionResult FindUsers(string s = "")
@@ -660,10 +744,14 @@ namespace BankSystem.Controllers
         [HttpGet]
         public ActionResult Transacts(byte byCard, string UserId = "", int CardId = 0)
         {
+            
             List<DbTransact> model = new List<DbTransact>();
             if (byCard == 1)
                 model = Repository.GetTransactsOfCard(CardId);
             else model = Repository.GetTransactsOfUser(UserId);
+            if (CardId != 0)
+                ViewData["UserId"] = Repository.GetCardById(CardId).UserId;
+            else ViewData["UserId"] = UserId;
             return View(model);
         }
 

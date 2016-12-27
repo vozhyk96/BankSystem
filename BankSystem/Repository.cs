@@ -170,6 +170,22 @@ namespace BankSystem
             }
         }
 
+        static public List<int> GetAccIdsOfUser(string UserId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<int> result = new List<int>();
+                foreach (var acc in db.BankAccount)
+                {
+                    if (acc.UserId == UserId)
+                    {
+                        result.Add(acc.id);
+                    }
+                }
+                return result;
+            }
+        }
+
         static public List<BankAccount> GetAccsOfUser(string UserId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
@@ -181,6 +197,19 @@ namespace BankSystem
                     {
                         result.Add(acc);
                     }
+                }
+                return result;
+            }
+        }
+
+        static public List<int> GetIdsOfCards()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<int> result = new List<int>();
+                foreach (var card in db.Card)
+                {
+                    result.Add(card.id);
                 }
                 return result;
             }
@@ -262,12 +291,12 @@ namespace BankSystem
             }
         }
 
-        static public void ChangePercent(int id, double per)
+        static public void ChangePercent(BankAccount acc)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                BankAccount acc = db.BankAccount.Find(id);
-                acc.percent = per;
+                BankAccount bacc = db.BankAccount.Find(acc.id);
+                bacc.percent = acc.percent;
                 db.SaveChanges();
             }
         }
@@ -350,10 +379,14 @@ namespace BankSystem
                     }
                     else
                     {
-                        if ((Repository.GetCardById(transact.CardInId).UserId == UserId) || (Repository.GetCardById(transact.CardOutId).UserId == UserId))
+                        try
                         {
-                            result.Add(transact);
+                            if ((Repository.GetCardById(transact.CardInId).UserId == UserId) || (Repository.GetCardById(transact.CardOutId).UserId == UserId))
+                            {
+                                result.Add(transact);
+                            }
                         }
+                        catch { }
                     }
                 }
                 result = SortByDate(result);

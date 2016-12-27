@@ -272,6 +272,8 @@
     <Compile Include="Models\DbModels\DbTransact.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\ChangeMoney.cs" />
+    <Compile Include="Models\ViewModels\ViewTransact.cs" />
     <Compile Include="Models\ViewModels\ViewUser.cs" />
     <Compile Include="Picture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,7 +310,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -346,9 +350,14 @@
     <Content Include="Views\Account\ChangeData.cshtml" />
     <Content Include="Views\Account\CreateNewCard.cshtml" />
     <Content Include="Views\Account\OpenCredit.cshtml" />
-    <Content Include="Views\Account\transact.cshtml" />
     <Content Include="Views\Account\FindUsers.cshtml" />
+    <Content Include="Views\Account\TransactsOld.cshtml" />
+    <Content Include="Views\Account\transact.cshtml" />
     <Content Include="Views\Account\Transacts.cshtml" />
+    <Content Include="Views\Account\Cards.cshtml" />
+    <Content Include="Views\Account\Accs.cshtml" />
+    <Content Include="Views\Account\ChangePercent.cshtml" />
+    <Content Include="Views\Account\ChangeMoney.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

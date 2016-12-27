@@ -1,30 +1,44 @@
-﻿
-@{
-    Layout = null;
-}
+﻿@using Microsoft.AspNet.Identity
+@model BankSystem.Models.ViewModels.ViewTransact
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>transact</title>
-</head>
-<body>
-    <div>
-        @using (Html.BeginForm("transact", "Account", FormMethod.Post))
-                {
-                    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>Отправка средств</h4>
+            <hr />
+                  
             <div class="form-group">
-            "Номер карточки с которой совершается перевод"<input id="Text1" type="text" name="n1" />
-            "Сумма перевода"<input id="Text2" type="text" name="money" />
-            "Номер карточки на которую совершается перевод"<input id="Text3" type="text" name="n2" />
-            <div class="col-md-offset-2 col-md-10">
-                <input id="ButtonChange" type="submit" class="btn btn-default" value="Перевести" />
+                @Html.Label("Номер карточки отправителя", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CardOutId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CardOutId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Номер карточки получателя", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CardInId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CardInId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Сумма перевода(если вы переводите деньги на чужой счёт, с этой суммы будет снята комиссия 10%)", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Отправить" class="btn btn-default" />
+                </div>
             </div>
         </div>
-        }
+    }
 
-    </div>
-</body>
-</html>
+@Html.ActionLink("Назад", "UserPage", "Account", new { id = User.Identity.GetUserId() }, null)
