@@ -708,6 +708,11 @@ namespace BankSystem.Controllers
             {
                 ModelState.AddModelError("CardOutId", "Такой карточки не существует!");
             }
+            ids = Repository.GetCardIdsOfUser(User.Identity.GetUserId());
+            if(!ids.Contains(transact.CardOutId))
+            {
+                ModelState.AddModelError("CardOutId", "Вы должны отправлять деньги со своего счёта!");
+            }
             if (ModelState.IsValid)
             {
                 BankAccount acc = Repository.GetAccountById(Repository.GetCardById(transact.CardOutId).AccountId);

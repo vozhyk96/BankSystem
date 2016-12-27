@@ -249,6 +249,22 @@ namespace BankSystem
             }
         }
 
+        static public List<int> GetCardIdsOfUser(string UserId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<int> result = new List<int>();
+                foreach (var card in db.Card)
+                {
+                    if(card.UserId == UserId)
+                    {
+                        result.Add(card.id);
+                    }
+                }
+                return result;
+            }
+        }
+
         static public BankAccount GetAccountById(int id)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())

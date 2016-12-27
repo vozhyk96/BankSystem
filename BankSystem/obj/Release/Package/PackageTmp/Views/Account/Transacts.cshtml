@@ -1,44 +1,49 @@
-﻿@using BankSystem.Models.DbModels;
-@model List<DbTransact>
-@{
-    Layout = null;
-}
+﻿@model IEnumerable<BankSystem.Models.DbModels.DbTransact>
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Транзакции</title>
+    <title>Transacts</title>
 </head>
 <body>
-    <div> 
-        @foreach (DbTransact transact in Model)
-        {
-            <br>
-            <div class="thumbnail">
-                <div class="col">
-                    <dl class="dl-horizontal">
-                        <dd>
-                            Номер транзакции: @transact.id
-                        </dd>
-                        <dd>
-                            Номер карточки отправителя: @transact.CardInId
-                        </dd>
-                        <dd>
-                            Номер карточки получателя: @transact.CardOutId
-                        </dd>
-                        <dd>
-                            Сумма перевода: @transact.money
-                        </dd>
-                        <dd>
-                            Дата транзакции: @transact.date
-                        </dd>
-
-                    </dl>
-                </div>
-            </div>
-        }
-    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Номер карточки отправителя")
+            </th>
+            <th>
+                @Html.DisplayName("Номер карточки получателя")
+            </th>
+            <th>
+                @Html.DisplayName("Сумма")
+            </th>
+            <th>
+                @Html.DisplayName("Время отправки")
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardInId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardOutId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.money)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            
+        </tr>
+    }
+    
+    </table>
 </body>
 </html>
+@Html.ActionLink("Назад", "UserPage", "Account", new { id = ViewData["UserId"] }, null)
