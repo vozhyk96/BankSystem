@@ -6,6 +6,7 @@ using System.Data.Entity;
 using BankSystem.Models;
 using BankSystem.Models.ViewModels;
 using BankSystem.Models.DbModels;
+using Microsoft.AspNet.Identity;
 
 namespace BankSystem
 {
@@ -317,7 +318,7 @@ namespace BankSystem
             }
         }
 
-        static public void OpenCredit(BankAccount acc, int accid)
+        static public void OpenCredit(BankAccount acc, int accid, string AdminId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -325,19 +326,24 @@ namespace BankSystem
                 if (acc.money > 0)
                     acc.money *= -1;
                 CreateBankAccount(acc);
+                AddTransact(0, 0, acc.money * (-1), AdminId, acc.UserId);
+                AddTransact(0, 0, acc.money, AdminId, acc.UserId);
                 if (accid != 0)
                 {
                     BankAccount account = db.BankAccount.Find(accid);
                     account.money = account.money + (acc.money*(-1));
                     db.SaveChanges();
+                    ChangeNone(accid);
                 }
                 else
                 {
                     BankAccount account = new BankAccount();
                     account.money = acc.money*(-1);
                     account.UserId = acc.UserId;
-                    CreateBankAccount(account);
+                    ChangeNone(CreateBankAccount(account));
                 }
+                ChangeNone(acc.id);
+                
             }
         }
 
@@ -361,6 +367,12 @@ namespace BankSystem
                 List<ApplicationUser> result = new List<ApplicationUser>();
                 foreach (var user in db.Users)
                 {
+                    if(user.name == null)
+                    {
+                        user.name = "";
+                        user.surname = "";
+                        user.patronymic = "";
+                    }
                     if (s == "")
                         result.Add(user);
                     else if((user.name.Contains(s))||(user.surname.Contains(s))||(user.patronymic.Contains(s))||(user.Id.Contains(s))||(user.Email.Contains(s)))
@@ -379,30 +391,40 @@ namespace BankSystem
                 List<DbTransact> result = new List<DbTransact>();
                 foreach (var transact in db.Transact)
                 {
-                    if (transact.CardInId == 0)
-                    {
-                        if (Repository.GetCardById(transact.CardOutId).UserId == UserId)
-                        {
-                            result.Add(transact);
-                        }
-                    }
-                    else if (transact.CardOutId == 0)
-                    {
-                        if (Repository.GetCardById(transact.CardInId).UserId == UserId)
-                        {
-                            result.Add(transact);
-                        }
-                    }
+                    if (transact.AdminId == UserId)
+                        result.Add(transact);
                     else
                     {
-                        try
+                        if ((transact.UserId == "")||(transact.UserId == null))
                         {
-                            if ((Repository.GetCardById(transact.CardInId).UserId == UserId) || (Repository.GetCardById(transact.CardOutId).UserId == UserId))
+                            if (transact.CardInId == 0)
                             {
-                                result.Add(transact);
+                                if (Repository.GetCardById(transact.CardOutId).UserId == UserId)
+                                {
+                                    result.Add(transact);
+                                }
+                            }
+                            else if (transact.CardOutId == 0)
+                            {
+                                if (Repository.GetCardById(transact.CardInId).UserId == UserId)
+                                {
+                                    result.Add(transact);
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    if ((Repository.GetCardById(transact.CardInId).UserId == UserId) || (Repository.GetCardById(transact.CardOutId).UserId == UserId))
+                                    {
+                                        result.Add(transact);
+                                    }
+                                }
+                                catch { }
                             }
                         }
-                        catch { }
+                        else if (transact.UserId == UserId)
+                            result.Add(transact);
                     }
                 }
                 result = SortByDate(result);
@@ -435,14 +457,16 @@ namespace BankSystem
             return tr;
         }
 
-        static public void AddTransact(int CardInId, int CardOutId, double money)
+        static public void AddTransact(int CardInId, int CardOutId, double money, string LogeduserId, string userId = "")
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 DbTransact transact = new DbTransact();
+                transact.AdminId = LogeduserId;
                 transact.CardInId = CardInId;
                 transact.CardOutId = CardOutId;
                 transact.money = money;
+                transact.UserId = userId;
                 transact.date = DateTime.Now;
                 db.Transact.Add(transact);
                 db.SaveChanges();

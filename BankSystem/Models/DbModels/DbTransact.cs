@@ -11,6 +11,8 @@ namespace BankSystem.Models.DbModels
         public int CardInId { get; set; }
         public int CardOutId { get; set; }
         public double money { get; set; }
+        public string AdminId { get; set; }
+        public string UserId { get; set; }
         public DateTime date { get; set; }
     }
 }

@@ -1,56 +1,57 @@
 ﻿@model BankSystem.Models.DbModels.BankAccount
+<div class="container body-content">
+    <!DOCTYPE html>
 
-<!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>OpenCredit</title>
+    </head>
+    <body>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>OpenCredit</title>
-</head>
-<body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>BankAccount</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                
-            <div class="form-group">
-                @Html.Label("Размер кредита", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
+            <div class="form-horizontal">
+                <h4>BankAccount</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.Label("Размер кредита", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Годовой процент", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.percent, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.percent, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Номер счёта на который поступит сумма кредита(0 если хотите создать новый):", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input id="Text2" type="number" name="accid" value="0" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Открыть кредит" class="btn btn-default" />
+                    </div>
                 </div>
             </div>
-    
-            <div class="form-group">
-                @Html.Label("Годовой процент", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.percent, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.percent, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.Label("Номер счёта на который поступит сумма кредита(0 если хотите создать новый):", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input id="Text2" type="text" name="accid" class="form-control"/>  
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-              
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Открыть кредит" class="btn btn-default" />
-                </div>
-            </div>
+        }
+
+        <div>
+            @Html.ActionLink("Назад", "UserPage", "Account", new { id = Model.UserId }, null)
         </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Назад", "UserPage", "Account", new { id = Model.UserId }, null)
-    </div>
-</body>
+    </body>
 </html>
+</div>

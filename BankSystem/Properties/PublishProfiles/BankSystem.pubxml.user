@@ -20,7 +20,7 @@
       <publishTime>10/09/2016 16:39:36</publishTime>
     </File>
     <File Include="bin/BankSystem.dll">
-      <publishTime>12/27/2016 08:47:51</publishTime>
+      <publishTime>12/31/2016 22:10:21</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -223,6 +223,12 @@
     <File Include="Content/Site.css">
       <publishTime>10/09/2016 16:39:06</publishTime>
     </File>
+    <File Include="css/agency.css">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="css/agency.min.css">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
     <File Include="favicon.ico">
       <publishTime>10/09/2016 16:39:06</publishTime>
     </File>
@@ -241,8 +247,41 @@
     <File Include="Global.asax">
       <publishTime>10/09/2016 16:39:06</publishTime>
     </File>
+    <File Include="gulpfile.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
     <File Include="Images/default.png">
       <publishTime>07/04/2016 05:54:16</publishTime>
+    </File>
+    <File Include="js/agency.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="js/agency.min.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="js/contact_me.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="js/jqBootstrapValidation.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="less/agency.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="less/mixins.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="less/variables.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="LICENSE">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="mail/contact_me.php">
+      <publishTime>12/31/2016 18:21:42</publishTime>
+    </File>
+    <File Include="package.json">
+      <publishTime>08/19/2016 13:37:08</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>10/09/2016 16:39:37</publishTime>
@@ -290,28 +329,178 @@
       <publishTime>10/09/2016 16:39:16</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>10/09/2016 16:39:16</publishTime>
+      <publishTime>12/31/2016 17:48:45</publishTime>
+    </File>
+    <File Include="scss/agency.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="scss/_mixins.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="scss/_variables.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/css/bootstrap.css">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/css/bootstrap.min.css">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/js/bootstrap.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/bootstrap/js/bootstrap.min.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/css/font-awesome.css">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/css/font-awesome.min.css">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/fonts/fontawesome-webfont.eot">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/fonts/fontawesome-webfont.svg">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/fonts/fontawesome-webfont.ttf">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/fonts/fontawesome-webfont.woff">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/fonts/fontawesome-webfont.woff2">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/fonts/FontAwesome.otf">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/animated.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/bordered-pulled.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/core.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/fixed-width.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/font-awesome.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/icons.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/larger.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/list.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/mixins.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/path.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/rotated-flipped.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/screen-reader.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/stacked.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/less/variables.less">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/font-awesome.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_animated.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_bordered-pulled.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_core.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_fixed-width.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_icons.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_larger.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_list.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_mixins.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_path.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_rotated-flipped.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_screen-reader.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_stacked.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/font-awesome/scss/_variables.scss">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/jquery/jquery.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
+    </File>
+    <File Include="vendor/jquery/jquery.min.js">
+      <publishTime>08/19/2016 13:37:08</publishTime>
     </File>
     <File Include="Views/Account/Accs.cshtml">
-      <publishTime>12/27/2016 06:54:12</publishTime>
+      <publishTime>12/31/2016 20:37:44</publishTime>
     </File>
     <File Include="Views/Account/Cards.cshtml">
-      <publishTime>12/27/2016 08:40:11</publishTime>
+      <publishTime>12/31/2016 20:37:44</publishTime>
     </File>
     <File Include="Views/Account/ChangeData.cshtml">
-      <publishTime>10/10/2016 00:02:09</publishTime>
+      <publishTime>12/31/2016 20:39:33</publishTime>
     </File>
     <File Include="Views/Account/ChangeMoney.cshtml">
-      <publishTime>12/27/2016 08:19:46</publishTime>
+      <publishTime>12/31/2016 20:37:44</publishTime>
     </File>
     <File Include="Views/Account/ChangePercent.cshtml">
-      <publishTime>12/27/2016 06:58:35</publishTime>
+      <publishTime>12/31/2016 20:37:44</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/CreateNewCard.cshtml">
-      <publishTime>12/27/2016 04:24:49</publishTime>
+      <publishTime>12/31/2016 20:37:44</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -320,7 +509,7 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/FindUsers.cshtml">
-      <publishTime>12/27/2016 05:31:34</publishTime>
+      <publishTime>12/31/2016 20:37:44</publishTime>
     </File>
     <File Include="Views/Account/ForgotPassword.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -329,13 +518,13 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>10/09/2016 16:39:19</publishTime>
+      <publishTime>12/31/2016 20:37:44</publishTime>
     </File>
     <File Include="Views/Account/OpenCredit.cshtml">
-      <publishTime>12/27/2016 05:52:04</publishTime>
+      <publishTime>12/31/2016 20:55:34</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>10/09/2016 16:39:19</publishTime>
+      <publishTime>12/31/2016 20:35:38</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -347,16 +536,16 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/transact.cshtml">
-      <publishTime>12/27/2016 04:51:32</publishTime>
+      <publishTime>12/31/2016 20:35:14</publishTime>
     </File>
     <File Include="Views/Account/Transacts.cshtml">
-      <publishTime>12/27/2016 05:09:03</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Views/Account/TransactsOld.cshtml">
       <publishTime>12/18/2016 22:07:53</publishTime>
     </File>
     <File Include="Views/Account/UserPage.cshtml">
-      <publishTime>12/27/2016 08:37:33</publishTime>
+      <publishTime>12/31/2016 20:31:29</publishTime>
     </File>
     <File Include="Views/Account/VerifyCode.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -371,7 +560,7 @@
       <publishTime>10/09/2016 16:39:06</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/27/2016 01:52:33</publishTime>
+      <publishTime>12/31/2016 18:35:06</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -398,7 +587,7 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/26/2016 00:18:38</publishTime>
+      <publishTime>12/31/2016 18:09:26</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>10/09/2016 19:14:23</publishTime>
@@ -407,10 +596,10 @@
       <publishTime>10/09/2016 16:39:06</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
-      <publishTime>10/09/2016 16:39:06</publishTime>
+      <publishTime>12/31/2016 18:10:19</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/26/2016 19:48:07</publishTime>
+      <publishTime>12/31/2016 22:10:40</publishTime>
     </File>
   </ItemGroup>
 </Project>

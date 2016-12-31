@@ -47,9 +47,14 @@ namespace BankSystem
         {
             if (this.Image != null)
             {
-                MemoryStream ms = new MemoryStream(this.Image);
-                Image returnImage = System.Drawing.Image.FromStream(ms);
-                return returnImage;
+                try
+                {
+                    MemoryStream ms = new MemoryStream(this.Image);
+                    Image returnImage = System.Drawing.Image.FromStream(ms);
+                    return returnImage;
+                }
+                catch
+                { return null;}
             }
             return null;
         }

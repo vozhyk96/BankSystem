@@ -116,3 +116,4 @@ D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Release\BankSy
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Release\BankSystem.csproj.GenerateResource.Cache
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Release\BankSystem.dll
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Release\BankSystem.pdb
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Release\BankSystem.Migrations.m16.resources

@@ -1,192 +1,194 @@
 ﻿@using Microsoft.AspNet.Identity
 @using BankSystem.Models.DbModels;
 @model BankSystem.Models.ViewModels.ViewUser
-@{
-    ViewBag.Title = "Страница пользователя";
-}
-<div align="center"><h2>@ViewBag.Title.</h2></div>
-<style>
-    .col {
-        width: 700px; /* Ширина блока */
-        padding: 10px; /* Поля */
-        word-wrap: break-word;
+<div class="container body-content">
+    @{
+        ViewBag.Title = "Страница пользователя";
     }
-</style>
-<style>
-    hr {
-        border: none;
-        background-color: gray;
-        height: 1px;
-    }
-</style>
-<div class="row">
-    <hr>
-    <div class="col-sm-8">
-        @if (Model.picture.Image != null)
+    <div align="center"><h2>@ViewBag.Title.</h2></div>
+    <style>
+        .col {
+            width: 700px; /* Ширина блока */
+            padding: 10px; /* Поля */
+            word-wrap: break-word;
+        }
+    </style>
+    <style>
+        hr {
+            border: none;
+            background-color: gray;
+            height: 1px;
+        }
+    </style>
+    <div class="row">
+        <hr>
+        <div class="col-sm-8">
+            @if (Model.picture.Image != null)
             {
-            <td>
-                @Html.Raw(Model.picture.HtmlRaw
+                <td>
+                    @Html.Raw(Model.picture.HtmlRaw
                         + Convert.ToBase64String(Model.picture.Image) + "\" />")
-            </td>
-        }
-        <br>
-        @using (Html.BeginForm("Create", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                </td>
+            }
+            <br>
+            @using (Html.BeginForm("Create", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-            <input type="hidden" name="modelId" value=@Model.id />
-            @Html.ValidationSummary(true)
-            <fieldset>
-                @if (Model.isUser)
-                {
-                    <div class="editor-field">
-                        <input type="file" name="uploadImage" class="btn btn-default" />
-                    </div>
+                <input type="hidden" name="modelId" value=@Model.id />
+                @Html.ValidationSummary(true)
+                <fieldset>
+                    @if (Model.isUser)
+                    {
+                        <div class="editor-field">
+                            <input type="file" name="uploadImage" class="btn btn-default" />
+                        </div>
 
-                            <p>
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Добавить" class="btn btn-success" />
-                                    </div>
+                        <p>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Добавить" class="btn btn-success" />
                                 </div>
-                            </p>
-                }
-            </fieldset>
-        }
-        @using (Html.BeginForm("Delete", "Account"))
+                            </div>
+                        </p>
+                    }
+                </fieldset>
+            }
+            @using (Html.BeginForm("Delete", "Account"))
             {
                 if ((Model.isUser) || (Repository.FindUserById(User.Identity.GetUserId()).isAdmin))
                 {
-                <div class="form-group">
-                    <input type="hidden" name="id" value=@Model.id />
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Удалить" class="btn btn-danger" />
-                    </div>
-                </div>
-            }
-        }
-    </div>
-    <div class="col-sm-4">
-        <p class="text-success">@ViewBag.StatusMessage</p>
-        <div>
-            <h4>Личные данные</h4>
-            <dl class="dl-horizontal">
-                @if (Model.isUser)
-            {
-                    <dt>Пароль:</dt>
-                    <dd>
-                        [
-                        @if (Model.HasPassword)
-                        {
-                            @Html.ActionLink("Изменить пароль", "ChangePassword", "Manage")
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Создать пароль", "SetPassword", "Manage")
-                        }
-                        ]
-                    </dd>
-                }
-                <dt>Фамилия:</dt>
-                <dd>
-                    @Model.surname
-                </dd>
-                <dt>Имя:</dt>
-                <dd>
-                    @Model.name
-                </dd>
-                <dt>Отчество:</dt>
-                <dd>
-                    @Model.patronymic
-                </dd>
-                <dt>Номер телефона:</dt>
-                <dd>
-                    @Model.phone
-                </dd>
-                <dt>Адрес:</dt>
-                <dd>
-                    @Model.adress
-                </dd>
-            </dl>
-            @if ((Model.isUser) || (Repository.FindUserById(User.Identity.GetUserId()).isAdmin))
-            {
-                using (Html.BeginForm("ChangeData", "Account", FormMethod.Get))
-                {
-                    <input type="hidden" name="modelId" value=@Model.id />
                     <div class="form-group">
+                        <input type="hidden" name="id" value=@Model.id />
                         <div class="col-md-offset-2 col-md-10">
-                            <input id="ButtonChange" type="submit" class="btn btn-default" value="Изменить данные" />
+                            <input type="submit" value="Удалить" class="btn btn-danger" />
                         </div>
                     </div>
                 }
             }
-            <br /><br /><br />
-            @using (Html.BeginForm("Transacts", "Account", FormMethod.Get))
-            {
-                <input type="hidden" name="byCard" value=0 />
-                <input type="hidden" name="UserId" value=@Model.id />
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input id="ButtonChange" type="submit" class="btn btn-default" value="Посмотреть транзакции пользователя" />
+        </div>
+        <div class="col-sm-4">
+            <p class="text-success">@ViewBag.StatusMessage</p>
+            <div>
+                <h4>Личные данные</h4>
+                <dl class="dl-horizontal">
+                    @if (Model.isUser)
+                    {
+                        <dt>Пароль:</dt>
+                        <dd>
+                            [
+                            @if (Model.HasPassword)
+                            {
+                                @Html.ActionLink("Изменить пароль", "ChangePassword", "Manage")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Создать пароль", "SetPassword", "Manage")
+                            }
+                            ]
+                        </dd>
+                    }
+                    <dt>Фамилия:</dt>
+                    <dd>
+                        @Model.surname
+                    </dd>
+                    <dt>Имя:</dt>
+                    <dd>
+                        @Model.name
+                    </dd>
+                    <dt>Отчество:</dt>
+                    <dd>
+                        @Model.patronymic
+                    </dd>
+                    <dt>Номер телефона:</dt>
+                    <dd>
+                        @Model.phone
+                    </dd>
+                    <dt>Адрес:</dt>
+                    <dd>
+                        @Model.adress
+                    </dd>
+                </dl>
+                @if ((Model.isUser) || (Repository.FindUserById(User.Identity.GetUserId()).isAdmin))
+                {
+                    using (Html.BeginForm("ChangeData", "Account", FormMethod.Get))
+                    {
+                        <input type="hidden" name="modelId" value=@Model.id />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="ButtonChange" type="submit" class="btn btn-default" value="Изменить данные" />
+                            </div>
+                        </div>
+                    }
+                }
+                <br /><br /><br />
+                @using (Html.BeginForm("Transacts", "Account", FormMethod.Get))
+                {
+                    <input type="hidden" name="byCard" value=0 />
+                    <input type="hidden" name="UserId" value=@Model.id />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input id="ButtonChange" type="submit" class="btn btn-default" value="Посмотреть транзакции пользователя" />
+                        </div>
                     </div>
-                </div>
-            }
-            <br>
-            <br>
-            <br>
+                }
+                <br>
+                <br>
+                <br>
+            </div>
         </div>
     </div>
-</div>
 
-@if (User.Identity.GetUserId() == Model.id)
-{
-    using (Html.BeginForm("transact", "Account",FormMethod.Get))
+    @if (User.Identity.GetUserId() == Model.id)
     {
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="ButtonChange" type="submit" class="btn btn-default" value="Перевести деньги" />
-        </div>
-    </div>
+        using (Html.BeginForm("transact", "Account", FormMethod.Get))
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="ButtonChange" type="submit" class="btn btn-default" value="Перевести деньги" />
+                </div>
+            </div>
         }
     }
-<br /><br /><br />
-@if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin)&&(User.Identity.GetUserId() != Model.id))
-{
-    string text;
-    if (Model.isAdmin)
+    <br /><br /><br />
+    @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
     {
-        text = "Снять админку";
+        string text;
+        if (Model.isAdmin)
+        {
+            text = "Снять админку";
+        }
+        else
+        {
+            text = "Дать админку";
+        }
+        using (Html.BeginForm("ChangeAdmin", "Account", FormMethod.Post))
+        {
+            <div class="form-group">
+                <input type="hidden" name="userId" value=@Model.id />
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="ButtonChange" type="submit" class="btn btn-default" value="@text" />
+                </div>
+            </div>
+        }
     }
-    else
+    <br /><br /><br />
+    @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
     {
-        text = "Дать админку";
+        using (Html.BeginForm("OpenCredit", "Account", FormMethod.Get))
+        {
+            <div class="form-group">
+                <input type="hidden" name="userId" value=@Model.id />
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="ButtonChange" type="submit" class="btn btn-default" value="Открыть кредит" />
+                </div>
+            </div>
+        }
     }
-    using (Html.BeginForm("ChangeAdmin", "Account",FormMethod.Post))
-    {
-    <div class="form-group">
-        <input type="hidden" name="userId" value=@Model.id />
-        <div class="col-md-offset-2 col-md-10">
-            <input id="ButtonChange" type="submit" class="btn btn-default" value="@text"  />
-        </div>
-    </div>
-    }
-}
-<br /><br /><br />
-@if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != Model.id))
-{
-    using (Html.BeginForm("OpenCredit", "Account", FormMethod.Get))
-    {
-    <div class="form-group">
-        <input type="hidden" name="userId" value=@Model.id />
-        <div class="col-md-offset-2 col-md-10">
-            <input id="ButtonChange" type="submit" class="btn btn-default" value="Открыть кредит" />
-        </div>
-    </div>
-    }
-}
 
-<br /><br /><br />
+    <br /><br /><br />
 
 
-@Html.Partial("Cards",Repository.GetCardsOfUser(Model.id))
+    @Html.Partial("Cards", Repository.GetCardsOfUser(Model.id))
 
-<br /><br /><br />
-@Html.Partial("Accs", Repository.GetAccsOfUser(Model.id))
+    <br /><br /><br />
+    @Html.Partial("Accs", Repository.GetAccsOfUser(Model.id))
+</div>

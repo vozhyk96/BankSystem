@@ -486,6 +486,7 @@ namespace BankSystem.Controllers
         private ViewUser GetViewModel(ApplicationUser user)
         {
             ViewUser model = new ViewUser();
+            
             if (user.Image == null)
             {
                 string path = HttpContext.Server.MapPath("~/Images/default.png");
@@ -500,6 +501,8 @@ namespace BankSystem.Controllers
             model.phone = "";
             model.adress = "";
             model.picture = new Picture(user.Image);
+            if (model.picture.HtmlRaw == "")
+                Repository.DeleteImage(user.Id);
             model.id = user.Id;
             model.isAdmin = user.isAdmin;
             if (user.surname != null)
@@ -611,7 +614,7 @@ namespace BankSystem.Controllers
                 if (!res.isAdd)
                     res.money *= -1;
                 Repository.AddMoney(res.CardId, res.money);
-                Repository.AddTransact(0, res.CardId, res.money);
+                Repository.AddTransact(0, res.CardId, res.money, User.Identity.GetUserId());
                 return RedirectToAction("UserPage", "Account", new { id = Repository.GetCardById(res.CardId).UserId });
             }
             ViewBag.Message = "Запрос не прошел валидацию";
@@ -662,7 +665,7 @@ namespace BankSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult OpenCredit(BankAccount acc, int accid)
+        public ActionResult OpenCredit(BankAccount acc, int accid = 0)
         {
             if(acc.money < 0)
             {
@@ -682,7 +685,7 @@ namespace BankSystem.Controllers
             }
             if (ModelState.IsValid)
             {
-                Repository.OpenCredit(acc, accid);
+                Repository.OpenCredit(acc, accid, User.Identity.GetUserId());
                 return RedirectToAction("UserPage", "Account", new { id = acc.UserId });
             }
             ViewBag.Message = "Запрос не прошел валидацию";
@@ -733,7 +736,7 @@ namespace BankSystem.Controllers
             {
 
                 Repository.transact(transact.CardOutId, transact.money, transact.CardInId);
-                Repository.AddTransact(transact.CardInId, transact.CardOutId, transact.money);
+                Repository.AddTransact(transact.CardInId, transact.CardOutId, transact.money, User.Identity.GetUserId());
                 return RedirectToAction("UserPage", "Account", new { id = User.Identity.GetUserId() });
             }
             ViewBag.Message = "Запрос не прошел валидацию";
