@@ -609,6 +609,10 @@ namespace BankSystem.Controllers
             {
                 ModelState.AddModelError("money", "Нельзя брать отрицательную сумму!");
             }
+            if((!res.isAdd)&&(res.money > Repository.GetAccountById(Repository.GetCardById(res.CardId).AccountId).money))
+            {
+                ModelState.AddModelError("money", "У него нет столько денег!");
+            }
             if (ModelState.IsValid)
             {
                 if (!res.isAdd)
@@ -763,6 +767,23 @@ namespace BankSystem.Controllers
             return View(model);
         }
 
+        public ActionResult GetMails()
+        {
+            List<Mail> model = Repository.GetMails();
+            return View(model);
+        }
+
+        public ActionResult LookMail(string id)
+        {
+            Mail model = Repository.GetMailById(id);
+            return View(model);
+        }
+
+        public ActionResult DeleteMail(string id)
+        {
+            Repository.DeleteMail(id);
+            return RedirectToAction("GetMails", "Account");
+        }
         /*public ActionResult Transacts(List<DbTransact> model, DateTime date)
         {
 

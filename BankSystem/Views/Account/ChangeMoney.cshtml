@@ -1,46 +1,64 @@
 ﻿@model BankSystem.Models.ViewModels.ChangeMoney
-
-<div class="container body-content">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-
-            @if (Model.isAdd)
-            {
-                <h4>Пополнение средств</h4>
-
-            }
-            else
-            {<h4>Снятие средств с карточки</h4>}
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.CardId)
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.isAdd)
-            <div class="form-group">
-                @Html.Label("Сумма", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    @if (Model.isAdd)
-                {
-                        <input type="submit" value="Положить деньги" class="btn btn-default" />
-                    }
-                    else
-                    { <input type="submit" value="Снять деньги" class="btn btn-default" />}
-                </div>
-            </div>
-        </div>
+<style>
+    body {
+        color: white;
+        font-size: medium;
     }
 
+    a {
+        color: lawngreen;
+    }
 
-    @Html.ActionLink("Назад", "UserPage", "Account", new { id = Repository.GetCardById(Model.CardId).UserId }, null)
-</div>
+        a:hover {
+            color: forestgreen;
+        }
+    .field-validation-error {
+        color: yellow;
+    }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+                @if (Model.isAdd)
+                {
+                    <h4>Пополнение средств</h4>
+
+                }
+                else
+                {<h4>Снятие средств с карточки</h4>}
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger"})
+                @Html.HiddenFor(model => model.CardId)
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.isAdd)
+                <div class="form-group">
+                    @Html.Label("Сумма", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        @if (Model.isAdd)
+                {
+                            <input type="submit" value="Положить деньги" class="btn btn-default" />
+                        }
+                        else
+                        { <input type="submit" value="Снять деньги" class="btn btn-default" />}
+                    </div>
+                </div>
+            </div>
+        }
+
+
+        @Html.ActionLink("Назад", "UserPage", "Account", new { id = Repository.GetCardById(Model.CardId).UserId }, null)
+    </div>
+</body>

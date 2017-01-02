@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
+using BankSystem.Models.DbModels;
 
 namespace BankSystem.Controllers
 {
@@ -98,13 +99,34 @@ namespace BankSystem.Controllers
             List<string> belvalutes = new List<string>();
             foreach (var valute in valutes)
             {
-                string s = String.Format("{0}({1}): {2}\n",valute.name,valute.charCode,valute.rate/belRate);
+                string s = String.Format("{0}({1}): {2}\n",valute.name,valute.charCode,Math.Round(valute.rate/belRate,4));
                 belvalutes.Add(s);
             }
             Valutes model = new Valutes();
-            model.valutes = belvalutes;          
-            
+            model.valutes = belvalutes;
+            if(Session["sucsess"] == null)
+                Session["sucsess"] = "";
+            string a = Session["sucsess"].ToString();
             return View(model);
+        }
+
+        public ActionResult SendMail(string name, string email, string phone, string message)
+        {
+            if((name != null)&&(email != null)&&(phone != null)&&(message != null)&&(email != ""))
+            {
+                Mail mail = new Mail();
+                mail.id = email;
+                mail.name = name;
+                mail.phone = phone;
+                mail.message = message;
+                mail.time = DateTime.Now;
+                Repository.AddMail(mail);
+                Session["sucsess"] = "true";
+            }
+            else Session["sucsess"] = "false";
+            string a = Session["sucsess"].ToString();
+            return RedirectToAction("Index","Home");
+            
         }
 
         public ActionResult About()

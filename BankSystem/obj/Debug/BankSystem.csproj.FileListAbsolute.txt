@@ -222,3 +222,5 @@ D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSyst
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.dll
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.pdb
 D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m16.resources
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m17.resources
+D:\Бгуир_7_семестр\ТОФИ\BankSystem\BankSystem\obj\Debug\BankSystem.Migrations.m18.resources

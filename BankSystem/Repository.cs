@@ -472,5 +472,45 @@ namespace BankSystem
                 db.SaveChanges();
             }
         }
+
+        static public void AddMail(Mail mail)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                db.Mails.Add(mail);
+                db.SaveChanges();
+            }
+        }
+
+        static public List<Mail> GetMails()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                List<Mail> result = new List<Mail>();
+                IEnumerable<Mail> nresult = db.Mails.OrderBy(t => t.time);
+                nresult = nresult.Reverse();
+                result = nresult.ToList();
+                return result;
+            }
+        }
+
+        static public Mail GetMailById(string id)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                Mail result = db.Mails.Find(id);
+                return result;
+            }
+        }
+
+        static public void DeleteMail(string id)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                Mail m = db.Mails.Find(id);
+                db.Mails.Remove(m);
+                db.SaveChanges();
+            }
+        }
     }
 }

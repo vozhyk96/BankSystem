@@ -1,0 +1,67 @@
+﻿@model IEnumerable<BankSystem.Models.DbModels.Mail>
+<style>
+    body {
+        color: white;
+        font-size: medium;
+    }
+
+    a {
+        color: lawngreen;
+    }
+
+        a:hover {
+            color: forestgreen;
+        }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        <!DOCTYPE html>
+
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title>Почта</title>
+        </head>
+        <body>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("email")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Имя")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Телефон")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Время")
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.id, "LookMail", "Account", new { id = item.id }, null)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.time)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </body>
+    </html>
+    </div>
+</body>

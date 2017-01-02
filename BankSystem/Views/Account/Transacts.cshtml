@@ -1,99 +1,117 @@
 ﻿@model IEnumerable<BankSystem.Models.DbModels.DbTransact>
-<div class="container body-content">
-    <!DOCTYPE html>
+<style>
+    body {
+        color: white;
+        font-size: medium;
+    }
 
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Transacts</title>
-    </head>
-    <body>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("Номер карточки/id отправителя")
-                </th>
-                <th>
-                    @Html.DisplayName("Номер карточки/id получателя")
-                </th>
-                <th>
-                    @Html.DisplayName("Сумма")
-                </th>
-                <th>
-                    @Html.DisplayName("Время отправки")
-                </th>
-                <th></th>
-            </tr>
+    a {
+        color: lawngreen;
+    }
 
-            @foreach (var item in Model)
-            {
+        a:hover {
+            color: forestgreen;
+        }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        <!DOCTYPE html>
+        @Html.ActionLink("Назад", "UserPage", "Account", new { id = ViewData["UserId"] }, null)
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title>Transacts</title>
+        </head>
+        <body>
+            <table class="table">
                 <tr>
-                    @if ((item.CardInId == 0) && (item.CardOutId == 0))
-                    {
-                        <td>
-                            @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
-                        </td>
-                        <td>
-                            @Html.ActionLink(item.UserId, "UserPage", "Account", new { id = item.UserId }, null)
-                        </td>
-                    }
-                    else
-                    {
-                        if (item.CardInId == 0)
+                    <th>
+                        @Html.DisplayName("Номер карточки/id отправителя")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Номер карточки/id получателя")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Сумма")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Время отправки")
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    double a = Math.Round(item.money, 4);
+                    <tr>
+                        @if ((item.CardInId == 0) && (item.CardOutId == 0))
                         {
-                            if ((item.AdminId == "") || (item.AdminId == null))
+                            <td>
+                                @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.UserId, "UserPage", "Account", new { id = item.UserId }, null)
+                            </td>
+                        }
+                        else
+                        {
+                            if (item.CardInId == 0)
+                            {
+                                if ((item.AdminId == "") || (item.AdminId == null))
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CardInId)
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
+                                    </td>
+                                }
+                            }
+                            else
                             {
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CardInId)
                                 </td>
                             }
-                            else
+                            if (item.CardOutId == 0)
                             {
-                            <td>
-                                @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
-                            </td>
+                                if ((item.AdminId == "") || (item.AdminId == null))
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CardOutId)
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
+                                    </td>
+                                }
                             }
-                        }
-                        else
-                        {
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CardInId)
-                            </td>
-                        }
-                        if (item.CardOutId == 0)
-                        {
-                            if ((item.AdminId == "") || (item.AdminId == null))
+                            else
                             {
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CardOutId)
                                 </td>
                             }
-                            else
-                            {
-                            <td>
-                                @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
-                            </td>
-                            }
                         }
-                        else
-                        {
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CardOutId)
-                            </td>
-                        }
-                    }
-                    <td>
-                        @Html.DisplayFor(modelItem => item.money)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.date)
-                    </td>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => a)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.date)
+                        </td>
 
-                </tr>
-            }
+                    </tr>
+                }
 
-        </table>
-    </body>
-</html>
-@Html.ActionLink("Назад", "UserPage", "Account", new { id = ViewData["UserId"] }, null)
+            </table>
+        </body>
+    </html>
+    
 </div>
+</body>
