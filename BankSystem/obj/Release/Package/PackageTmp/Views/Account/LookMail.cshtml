@@ -1,0 +1,87 @@
+﻿@model BankSystem.Models.DbModels.Mail
+
+<style>
+    body {
+        color: white;
+        font-size: medium;
+    }
+
+    a {
+        color: lawngreen;
+    }
+
+        a:hover {
+            color: forestgreen;
+        }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        <!DOCTYPE html>
+
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title>LookMail</title>
+        </head>
+        <body>
+            <div>
+                <h4>Mail</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayName("Email")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.id)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Имя")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Телефон")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.phone)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Текст письма")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.message)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayName("Время отправки")
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.time)
+                    </dd>
+                    @using (Html.BeginForm("DeleteMail", "Account"))
+            {
+                        <input type="hidden" name="id" value=@Model.id />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input id="ButtonDelete" type="submit" class="btn btn-default" value="Удалить письмо" />
+                            </div>
+                        </div>
+                    }
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Назад", "GetMails")
+            </p>
+        </body>
+    </html>
+    </div>
+</body>

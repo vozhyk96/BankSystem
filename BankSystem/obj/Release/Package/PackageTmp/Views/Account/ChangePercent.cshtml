@@ -1,44 +1,63 @@
 ﻿@model BankSystem.Models.DbModels.BankAccount
-<div class="container body-content">
-    <!DOCTYPE html>
+<style>
+    body {
+        color: white;
+        font-size: medium;
+    }
 
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>ChangePercent</title>
-    </head>
-    <body>
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+    a {
+        color: lawngreen;
+    }
 
-            <div class="form-horizontal">
-                <h4>BankAccount</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.id)
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.percent, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.percent, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.percent, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Сохранить" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
+        a:hover {
+            color: forestgreen;
         }
+    .field-validation-error {
+        color: yellow;
+    }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        <!DOCTYPE html>
 
-        <div>
-            @Html.ActionLink("Назад", "UserPage", "Account", new { id = Model.UserId }, null)
-        </div>
-    </body>
-</html>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title>ChangePercent</title>
+        </head>
+        <body>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>BankAccount</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.id)
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.percent, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.percent, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.percent, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Сохранить" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div>
+                @Html.ActionLink("Назад", "UserPage", "Account", new { id = Model.UserId }, null)
+            </div>
+        </body>
+    </html>
 </div>
+</body>

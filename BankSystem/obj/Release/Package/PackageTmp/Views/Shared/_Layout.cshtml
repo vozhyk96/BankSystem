@@ -28,7 +28,8 @@
                     if (Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
                     {
                         <li>@Html.ActionLink("Поиск пользователей", "FindUsers", "Account")</li>
-                    }
+                        <li>@Html.ActionLink("Почта", "GetMails", "Account")</li>
+                        }
                     }
                     
                 </ul>

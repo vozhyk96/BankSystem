@@ -749,6 +749,10 @@ namespace BankSystem.Controllers
 
         public ActionResult FindUsers(string s = "")
         {
+            if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<ApplicationUser> model = Repository.FindUsers(s);
             return View(model);
         }
@@ -769,18 +773,30 @@ namespace BankSystem.Controllers
 
         public ActionResult GetMails()
         {
+            if(!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<Mail> model = Repository.GetMails();
             return View(model);
         }
 
         public ActionResult LookMail(string id)
         {
+            if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Mail model = Repository.GetMailById(id);
             return View(model);
         }
 
         public ActionResult DeleteMail(string id)
         {
+            if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Repository.DeleteMail(id);
             return RedirectToAction("GetMails", "Account");
         }

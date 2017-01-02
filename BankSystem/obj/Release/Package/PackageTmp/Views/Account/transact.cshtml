@@ -1,45 +1,66 @@
 ﻿@using Microsoft.AspNet.Identity
 @model BankSystem.Models.ViewModels.ViewTransact
-<div class="container body-content">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>Отправка средств</h4>
-            <hr />
-
-            <div class="form-group">
-                @Html.Label("Номер карточки отправителя", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CardOutId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CardOutId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Номер карточки получателя", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CardInId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CardInId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Сумма перевода(если вы переводите деньги на чужой счёт, с этой суммы будет снята комиссия 10%)", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Отправить" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
+<style>
+    body {
+        color: white;
+        font-size: medium;
     }
 
-    @Html.ActionLink("Назад", "UserPage", "Account", new { id = User.Identity.GetUserId() }, null)
-</div>
+    a {
+        color: lawngreen;
+    }
+
+        a:hover {
+            color: forestgreen;
+        }
+    .field-validation-error {
+        color: yellow;
+    }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Отправка средств</h4>
+                <hr />
+
+                <div class="form-group">
+                    @Html.Label("Номер карточки отправителя", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CardOutId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CardOutId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Номер карточки получателя", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CardInId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CardInId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Сумма перевода(если вы переводите деньги на чужой счёт, с этой суммы будет снята комиссия 10%)", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <br />
+                        <br />
+                        @Html.EditorFor(model => model.money, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.money, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Отправить" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @Html.ActionLink("Назад", "UserPage", "Account", new { id = User.Identity.GetUserId() }, null)
+    </div>
+</body>

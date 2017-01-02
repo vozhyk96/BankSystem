@@ -1,52 +1,71 @@
 ﻿@model IEnumerable<BankSystem.Models.DbModels.Card>
 @using Microsoft.AspNet.Identity
-<div class="container body-content">
-    <p>
-        @Html.ActionLink("Создать новую карточку", "CreateNewCard", new { UserId = User.Identity.GetUserId() })
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayName("Номер карточки")
-            </th>
-            <th>
-                @Html.DisplayName("Номер счёта")
-            </th>
-            <th>
-                @Html.DisplayName("Колличество денег")
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AccountId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Repository.GetAccountById(item.AccountId).money)
-                </td>
-                <td>
-                    @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != item.UserId))
-                    {
+<style>
+    body {
+        color: white;
+        font-size: medium;
+    }
 
-                        @Html.ActionLink("Положить деньги", "ChangeMoney", new { id = item.id, isAdd = true })
-                    }
-                    |
-                    @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != item.UserId))
-                    {
-                        @Html.ActionLink("Снять деньги", "ChangeMoney", new { id = item.id, isAdd = false })
-                    }
-                    |
-                    @Html.ActionLink("Посмотреть транзакции карточки", "Transacts", new { CardId = item.id, byCard = 1 }) |
-                    @Html.ActionLink("Удалить карточку", "RemoveCard", new { id = item.id, UserId = item.UserId })
-                </td>
-            </tr>
+    a {
+        color: lawngreen;
+    }
+
+        a:hover {
+            color: forestgreen;
         }
+    .field-validation-error {
+        color: yellow;
+    }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Номер карточки")
+                </th>
+                <th>
+                    @Html.DisplayName("Номер счёта")
+                </th>
+                <th>
+                    @Html.DisplayName("Колличество денег")
+                </th>
+                <th></th>
+            </tr>
 
-    </table>
-</div>
+            @foreach (var item in Model)
+            {
+                double a = Math.Round(Repository.GetAccountById(item.AccountId).money,4);
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => a)
+                    </td>
+                    <td>
+                        @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != item.UserId))
+                        {
+
+                            @Html.ActionLink("Положить деньги", "ChangeMoney", new { id = item.id, isAdd = true })
+                        }
+                        |
+                        @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != item.UserId))
+                        {
+                            @Html.ActionLink("Снять деньги", "ChangeMoney", new { id = item.id, isAdd = false })
+                        }
+                        |
+                        @Html.ActionLink("Посмотреть транзакции карточки", "Transacts", new { CardId = item.id, byCard = 1 }) |
+                        @Html.ActionLink("Удалить карточку", "RemoveCard", new { id = item.id, UserId = item.UserId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>
