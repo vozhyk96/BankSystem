@@ -45,7 +45,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.ActionLink(item.id, "LookMail", "Account", new { id = item.id.Replace('.', '☻') }, null)
+                            @Html.ActionLink(item.email, "LookMail", "Account", new { id = item.id }, null)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.name)

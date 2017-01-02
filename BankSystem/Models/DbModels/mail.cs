@@ -7,7 +7,8 @@ namespace BankSystem.Models.DbModels
 {
     public class Mail
     {
-        public string id { get; set; }
+        public int id { get; set; }
+        public string email { get; set; }
         public string name { get; set; }
         public string phone { get; set; }
         public string message { get; set; }

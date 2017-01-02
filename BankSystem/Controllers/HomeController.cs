@@ -115,7 +115,7 @@ namespace BankSystem.Controllers
             if((name != null)&&(email != null)&&(phone != null)&&(message != null)&&(email != ""))
             {
                 Mail mail = new Mail();
-                mail.id = email;
+                mail.email = email;
                 mail.name = name;
                 mail.phone = phone;
                 mail.message = message;

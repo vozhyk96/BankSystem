@@ -494,7 +494,7 @@ namespace BankSystem
             }
         }
 
-        static public Mail GetMailById(string id)
+        static public Mail GetMailById(int id)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -503,7 +503,7 @@ namespace BankSystem
             }
         }
 
-        static public void DeleteMail(string id)
+        static public void DeleteMail(int id)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {

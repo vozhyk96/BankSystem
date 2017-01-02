@@ -782,9 +782,8 @@ namespace BankSystem.Controllers
         }
 
         
-        public ActionResult LookMail(string id)
+        public ActionResult LookMail(int id)
         {
-            id = id.Replace('☻','.');
             if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
             {
                 return RedirectToAction("Index", "Home");
@@ -793,7 +792,7 @@ namespace BankSystem.Controllers
             return View(model);
         }
 
-        public ActionResult DeleteMail(string id)
+        public ActionResult DeleteMail(int id)
         {
             if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
             {
