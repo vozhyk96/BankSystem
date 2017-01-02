@@ -60,27 +60,6 @@
                                 if ((item.AdminId == "") || (item.AdminId == null))
                                 {
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.CardInId)
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
-                                    </td>
-                                }
-                            }
-                            else
-                            {
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CardInId)
-                                </td>
-                            }
-                            if (item.CardOutId == 0)
-                            {
-                                if ((item.AdminId == "") || (item.AdminId == null))
-                                {
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.CardOutId)
                                     </td>
                                 }
@@ -95,6 +74,27 @@
                             {
                                 <td>
                                     @Html.DisplayFor(modelItem => item.CardOutId)
+                                </td>
+                            }
+                            if (item.CardOutId == 0)
+                            {
+                                if ((item.AdminId == "") || (item.AdminId == null))
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CardInId)
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.ActionLink(item.AdminId, "UserPage", "Account", new { id = item.AdminId }, null)
+                                    </td>
+                                }
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CardInId)
                                 </td>
                             }
                         }

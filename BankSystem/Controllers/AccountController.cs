@@ -454,9 +454,12 @@ namespace BankSystem.Controllers
         [HttpPost]
         public ActionResult Create(string modelId, HttpPostedFileBase uploadImage)
         {
-            if(uploadImage.ContentLength >= 10000)
+            if (uploadImage != null)
             {
-                ModelState.AddModelError("uploadImage", "Размер картинки не должен превышать 10 мегабайт!");
+                if (uploadImage.ContentLength >= 10000)
+                {
+                    ModelState.AddModelError("uploadImage", "Размер картинки не должен превышать 10 мегабайт!");
+                }
             }
             if (ModelState.IsValid && uploadImage != null)
             {
@@ -626,7 +629,7 @@ namespace BankSystem.Controllers
                 if (!res.isAdd)
                     res.money *= -1;
                 Repository.AddMoney(res.CardId, res.money);
-                Repository.AddTransact(0, res.CardId, res.money, User.Identity.GetUserId());
+                Repository.AddTransact(res.CardId, 0, res.money, User.Identity.GetUserId());
                 return RedirectToAction("UserPage", "Account", new { id = Repository.GetCardById(res.CardId).UserId });
             }
             ViewBag.Message = "Запрос не прошел валидацию";
