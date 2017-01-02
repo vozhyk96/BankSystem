@@ -781,8 +781,10 @@ namespace BankSystem.Controllers
             return View(model);
         }
 
+        
         public ActionResult LookMail(string id)
         {
+            id = id.Replace('☻','.');
             if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
             {
                 return RedirectToAction("Index", "Home");

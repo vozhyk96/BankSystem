@@ -42,10 +42,10 @@
                 </tr>
 
                 @foreach (var item in Model)
-            {
+                {
                     <tr>
                         <td>
-                            @Html.ActionLink(item.id, "LookMail", "Account", new { id = item.id }, null)
+                            @Html.ActionLink(item.id, "LookMail", "Account", new { id = item.id.Replace('.', '☻') }, null)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.name)
