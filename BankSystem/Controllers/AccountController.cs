@@ -454,6 +454,10 @@ namespace BankSystem.Controllers
         [HttpPost]
         public ActionResult Create(string modelId, HttpPostedFileBase uploadImage)
         {
+            if(uploadImage.ContentLength >= 10000)
+            {
+                ModelState.AddModelError("uploadImage", "Размер картинки не должен превышать 10 мегабайт!");
+            }
             if (ModelState.IsValid && uploadImage != null)
             {
                 byte[] imageData = null;
@@ -595,6 +599,10 @@ namespace BankSystem.Controllers
         [HttpGet]
         public ActionResult ChangeMoney(int id, bool isAdd)
         {
+            if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ChangeMoney model = new ChangeMoney();
             model.CardId = id;
             model.isAdd = isAdd;
@@ -641,6 +649,10 @@ namespace BankSystem.Controllers
         [HttpGet]
         public ActionResult ChangePercent(string userId, int id)
         {
+            if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             BankAccount acc = Repository.GetAccountById(id);
             return View(acc);
         }
@@ -663,6 +675,10 @@ namespace BankSystem.Controllers
         [HttpGet]
         public ActionResult OpenCredit(string userId)
         {
+            if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             BankAccount acc = new BankAccount();
             acc.UserId = userId;
             return (View(acc));
@@ -800,6 +816,19 @@ namespace BankSystem.Controllers
             }
             Repository.DeleteMail(id);
             return RedirectToAction("GetMails", "Account");
+        }
+
+        public ActionResult DefaultPassword(string UserId)
+        {
+            if (!Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Repository.DeletePassword(UserId);
+            ApplicationUser user = Repository.GetUser(UserId);
+            return RedirectToAction("SetPassword", "Manage", new { UserId = UserId});
+
+
         }
         /*public ActionResult Transacts(List<DbTransact> model, DateTime date)
         {

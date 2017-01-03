@@ -20,7 +20,7 @@
       <publishTime>10/09/2016 16:39:36</publishTime>
     </File>
     <File Include="bin/BankSystem.dll">
-      <publishTime>01/02/2017 03:40:22</publishTime>
+      <publishTime>01/03/2017 16:38:25</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -497,7 +497,7 @@
       <publishTime>01/02/2017 01:02:21</publishTime>
     </File>
     <File Include="Views/Account/ChangePercent.cshtml">
-      <publishTime>01/02/2017 01:03:59</publishTime>
+      <publishTime>01/02/2017 14:13:11</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -512,7 +512,7 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/FindUsers.cshtml">
-      <publishTime>01/02/2017 00:49:11</publishTime>
+      <publishTime>01/02/2017 14:13:11</publishTime>
     </File>
     <File Include="Views/Account/ForgotPassword.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -521,16 +521,16 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/GetMails.cshtml">
-      <publishTime>01/02/2017 03:13:03</publishTime>
+      <publishTime>01/02/2017 14:05:34</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
       <publishTime>01/02/2017 01:03:59</publishTime>
     </File>
     <File Include="Views/Account/LookMail.cshtml">
-      <publishTime>01/02/2017 03:26:29</publishTime>
+      <publishTime>01/02/2017 14:10:04</publishTime>
     </File>
     <File Include="Views/Account/OpenCredit.cshtml">
-      <publishTime>01/02/2017 01:03:59</publishTime>
+      <publishTime>01/02/2017 14:13:11</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>01/02/2017 01:03:59</publishTime>
@@ -548,7 +548,7 @@
       <publishTime>01/02/2017 01:03:59</publishTime>
     </File>
     <File Include="Views/Account/Transacts.cshtml">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>01/02/2017 14:13:11</publishTime>
     </File>
     <File Include="Views/Account/TransactsOld.cshtml">
       <publishTime>12/18/2016 22:07:53</publishTime>

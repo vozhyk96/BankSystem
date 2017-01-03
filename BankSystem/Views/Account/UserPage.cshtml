@@ -84,12 +84,14 @@
                 <div>
                     <h4>Личные данные</h4>
                     <dl class="dl-horizontal">
-                        @if (Model.isUser)
-                        {
                             <dt>Пароль:</dt>
                             <dd>
                                 [
-                                @if (Model.HasPassword)
+                                @if (User.Identity.GetUserId() == Model.id)
+                                {
+
+
+                                if (Model.HasPassword)
                                 {
                                     @Html.ActionLink("Изменить пароль", "ChangePassword", "Manage")
                                 }
@@ -97,9 +99,15 @@
                                 {
                                     @Html.ActionLink("Создать пароль", "SetPassword", "Manage")
                                 }
+                                }
                                 ]
+                         
+                                @if (Repository.FindUserById(User.Identity.GetUserId()).isAdmin)
+                                {
+                                    @Html.ActionLink("Сбросить пароль", "DefaultPassword", "Account", new { UserId = Model.id }, null)
+                                }
                             </dd>
-                        }
+                        
                         <dt>Фамилия:</dt>
                         <dd>
                             @Model.surname

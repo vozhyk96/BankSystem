@@ -246,8 +246,9 @@ namespace BankSystem.Controllers
 
         //
         // GET: /Manage/SetPassword
-        public ActionResult SetPassword()
+        public ActionResult SetPassword(string UserId = "")
         {
+            Session["UserId"] = UserId;
             return View();
         }
 
@@ -257,12 +258,16 @@ namespace BankSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
+            string UserId = Session["UserId"].ToString();
+            ViewData["UserId"] = "";
+            if (UserId == "")
+                UserId = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                var result = await UserManager.AddPasswordAsync(UserId, model.NewPassword);
                 if (result.Succeeded)
                 {
-                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    var user = await UserManager.FindByIdAsync(UserId);
                     if (user != null)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -332,6 +337,8 @@ namespace BankSystem.Controllers
 
             base.Dispose(disposing);
         }
+
+        
 
 #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа

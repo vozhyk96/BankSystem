@@ -399,17 +399,24 @@ namespace BankSystem
                         {
                             if (transact.CardInId == 0)
                             {
-                                if (Repository.GetCardById(transact.CardOutId).UserId == UserId)
+                                try
                                 {
-                                    result.Add(transact);
+                                    if (Repository.GetCardById(transact.CardOutId).UserId == UserId)
+                                    {
+                                        result.Add(transact);
+                                    }
                                 }
+                                catch { }
                             }
                             else if (transact.CardOutId == 0)
                             {
-                                if (Repository.GetCardById(transact.CardInId).UserId == UserId)
-                                {
-                                    result.Add(transact);
+                                try { 
+                                    if (Repository.GetCardById(transact.CardInId).UserId == UserId)
+                                    {
+                                        result.Add(transact);
+                                    }
                                 }
+                                catch { }
                             }
                             else
                             {
@@ -509,6 +516,16 @@ namespace BankSystem
             {
                 Mail m = db.Mails.Find(id);
                 db.Mails.Remove(m);
+                db.SaveChanges();
+            }
+        }
+
+        static public void DeletePassword(string UserId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                ApplicationUser user = db.Users.Find(UserId);
+                user.PasswordHash = null;
                 db.SaveChanges();
             }
         }

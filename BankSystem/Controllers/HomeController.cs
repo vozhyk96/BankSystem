@@ -24,14 +24,15 @@ namespace BankSystem.Controllers
         }
         private decimal GetValue(string s)
         {
-            int position = s.IndexOf("<Value>");
-            position += 7;
+            int position = s.IndexOf("<Rate>");
+            position += 6;
             string result = "";
             while (s[position] != '<')
             {
                 result += s[position];
                 position++;
             }
+            result = result.Replace('.', ',');
             return Convert.ToDecimal(result);
         }
 
@@ -47,16 +48,29 @@ namespace BankSystem.Controllers
             }
             return result;
         }
+
+        private int GetScale(string s)
+        {
+            int position = s.IndexOf("<Scale>");
+            position += 7;
+            string result = "";
+            while (s[position] != '<')
+            {
+                result += s[position];
+                position++;
+            }
+            return Convert.ToInt32(result);
+        }
         public ActionResult Index()
         {
             //Инициализируем объекта типа XmlTextReader и
             //загружаем XML документ с сайта центрального банка
-            XmlTextReader reader = new XmlTextReader("http://www.cbr.ru/scripts/XML_daily.asp");
+            XmlTextReader reader = new XmlTextReader("http://www.nbrb.by/Services/XmlExRates.aspx");
             //В эти переменные будем сохранять куски XML
             //с определенными валютами (Euro, USD)
             List<Valute> valutes = new List<Valute>();
             string XML = "";
-            decimal belRate = 0;
+            
             //Перебираем все узлы в загруженном документе
             while (reader.Read())
             {
@@ -66,14 +80,14 @@ namespace BankSystem.Controllers
                     //Если этого элемент Valute, то начинаем анализировать атрибуты
                     case XmlNodeType.Element:
 
-                        if (reader.Name == "Valute")
+                        if (reader.Name == "Currency")
                         {
                             if (reader.HasAttributes)
                             {
                                 //Метод передвигает указатель к следующему атрибуту
                                 while (reader.MoveToNextAttribute())
                                 {
-                                    if (reader.Name == "ID")
+                                    if (reader.Name == "Id")
                                     {
                                         reader.MoveToElement();
                                         XML = reader.ReadOuterXml();
@@ -81,11 +95,9 @@ namespace BankSystem.Controllers
                                         v.name = GetName(XML);
                                         v.charCode = GetCharCode(XML);
                                         v.rate = GetValue(XML);
+                                        v.scale = GetScale(XML);
                                         valutes.Add(v);
-                                        if(v.name == "Белорусский рубль")
-                                        {
-                                            belRate = v.rate;
-                                        }
+                                        
                                     }
                                    
                                 }
@@ -99,7 +111,7 @@ namespace BankSystem.Controllers
             List<string> belvalutes = new List<string>();
             foreach (var valute in valutes)
             {
-                string s = String.Format("{0}({1}): {2}\n",valute.name,valute.charCode,Math.Round(valute.rate/belRate,4));
+                string s = String.Format("За {3} {0}({1}): {2} BYN\n", valute.name,valute.charCode,Math.Round(valute.rate,4),valute.scale);
                 belvalutes.Add(s);
             }
             Valutes model = new Valutes();
