@@ -585,18 +585,8 @@ namespace BankSystem.Controllers
         public ActionResult CreateNewCard(Card card)
         {
             List<int> ids = Repository.GetAccIdsOfUser(card.UserId);
-            if ((card.AccountId != 0)&&(!ids.Contains(card.AccountId)))
-            {
-                ModelState.AddModelError("AccountId", "Такого счёта не существует!");
-            }
-            if (ModelState.IsValid)
-            {
-                Repository.CreateCard(card);
-                return RedirectToAction("UserPage", "Account", new { id = card.UserId });
-            }
-            ViewBag.Message = "Запрос не прошел валидацию";
-            return View(card);
-
+            Repository.CreateCard(card);
+            return RedirectToAction("UserPage", "Account", new { id = card.UserId });
         }
 
         [HttpGet]
@@ -730,14 +720,9 @@ namespace BankSystem.Controllers
             {
                 ModelState.AddModelError("CardInId", "Такой карточки не существует!");
             }
-            if (!ids.Contains(transact.CardOutId))
+            if(transact.CardOutId == 0)
             {
-                ModelState.AddModelError("CardOutId", "Такой карточки не существует!");
-            }
-            ids = Repository.GetCardIdsOfUser(User.Identity.GetUserId());
-            if(!ids.Contains(transact.CardOutId))
-            {
-                ModelState.AddModelError("CardOutId", "Вы должны отправлять деньги со своего счёта!");
+                ModelState.AddModelError("CardOutId", "Вы должны выбрать одну из своих кроточек!");
             }
             if (ModelState.IsValid)
             {

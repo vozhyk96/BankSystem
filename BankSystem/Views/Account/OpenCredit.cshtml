@@ -54,11 +54,18 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.Label("Номер счёта на который поступит сумма кредита(0 если хотите создать новый):", htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Label("Номер счёта на который поступит сумма кредита:", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <br />
-                            <input id="Text2" type="number" name="accid" value="0" class="form-control" />
-                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                            @{
+                                var listitems = new List<int>();
+                                listitems = Repository.GetAccIdsOfUser(Model.UserId);
+                            }
+
+                            @Html.DropDownList(name: "accid", selectList: new SelectList(listitems), optionLabel: "Создать новый счёт", htmlAttributes: new { htmlAttributes = new { @class = "form-control" } })
+
+
+       
                         </div>
                     </div>
 

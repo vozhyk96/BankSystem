@@ -31,7 +31,9 @@
                 <th>
                     @Html.DisplayName("Процент")
                 </th>
-
+                <th>
+                    @Html.DisplayName("Вид счёта")
+                </th>
                 <th>
                     @Html.DisplayName("Последее изменение")
                 </th>
@@ -51,6 +53,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.percent)
                     </td>
+                    @if (!item.isCredit)
+                    {
+                        <td>
+                            @Html.DisplayName("Депозит")
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayName("Кредит")
+                        </td>
+                    }
                     <td>
                         @Html.DisplayFor(modelItem => item.LastChanging)
                     </td>
