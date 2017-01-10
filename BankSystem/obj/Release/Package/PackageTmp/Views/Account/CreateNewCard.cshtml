@@ -1,4 +1,5 @@
 ﻿@model BankSystem.Models.DbModels.Card
+
 <style>
     body {
         color: white;
@@ -12,37 +13,52 @@
         a:hover {
             color: forestgreen;
         }
+    
     .field-validation-error {
         color: yellow;
     }
 </style>
 <body background="~/Images/back.jpg">
     <div class="container body-content">
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta name="viewport" content="width=device-width" />
+            <title>CreateNewCard</title>
+        </head>
+        <body>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <h4>Card</h4>
+                    <hr />
+                    <div class="form-group">
+                        @Html.Label("Номер счёта", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @{
+                                var listitems = new List<int>();
+                                listitems = Repository.GetAccIdsOfUser(Model.UserId);
+                            }
 
-            <div class="form-horizontal">
-                <h4>Создание новой карточки</h4>
-                <hr />
-                <div class="form-group">
-                    @Html.Label("Номер счёта(0 если хотите создать новый)", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.AccountId, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.AccountId, "", new { @class = "text-danger" })
+                            @Html.DropDownListFor(model => model.AccountId, new SelectList(listitems), "Создать новый счёт", new { htmlAttributes = new { @class = "form-control"}})
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Создать карточку" class="btn btn-default" />
+                        </div>
                     </div>
                 </div>
+                                }
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Создать карточку" class="btn btn-default" />
-                    </div>
-                </div>
+            <div>
+                @Html.ActionLink("Назад", "UserPage", "Account", new { id = Model.UserId }, null)
             </div>
-        }
-
-
-        @Html.ActionLink("Назад", "UserPage", "Account", new { id = Model.UserId }, null)
-    </div>
+        </body>
+    </html>
+</div>
 </body>

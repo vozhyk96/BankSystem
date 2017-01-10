@@ -7,7 +7,7 @@
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAADz+vbSIiw0qGmMdZbIH5RAAAAAACAAAAAAAQZgAAAAEAACAAAABxjjhYtnxskW5N/it6j8RdRYHusGruHRJj7Q8+7MisGgAAAAAOgAAAAAIAACAAAAAs4gSA/JQtdK/1ytA3iQZOd8+qNj8RVX0QJWqRTzHxeyAAAABmMPmJ3kgEZah2ii8Ij0Wx5fog5I1p8C2vY/C4KtcSVkAAAADz5WNuAh2dyQoqv3EAXchqINWjPJkDW62B4mhcPOHgkhx8GpF8Gpukm9xZFCHScwkHOMvrJtsw0MiRDqL0+HBd</EncryptedPassword>
-    <_PublishTargetUrl>ftp://BankSystem.somee.com/www.BankSystem.somee.com</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Бгуир_7_семестр\ТОФИ\BankSystem</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
@@ -20,7 +20,7 @@
       <publishTime>10/09/2016 16:39:36</publishTime>
     </File>
     <File Include="bin/BankSystem.dll">
-      <publishTime>01/03/2017 23:48:45</publishTime>
+      <publishTime>01/05/2017 18:01:09</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 09:32:26</publishTime>
@@ -503,7 +503,7 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/CreateNewCard.cshtml">
-      <publishTime>01/02/2017 01:03:59</publishTime>
+      <publishTime>01/05/2017 18:28:47</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
       <publishTime>10/09/2016 16:39:19</publishTime>
@@ -530,7 +530,7 @@
       <publishTime>01/02/2017 14:10:04</publishTime>
     </File>
     <File Include="Views/Account/OpenCredit.cshtml">
-      <publishTime>01/02/2017 14:13:11</publishTime>
+      <publishTime>01/05/2017 17:30:19</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>01/02/2017 01:03:59</publishTime>
@@ -545,7 +545,7 @@
       <publishTime>10/09/2016 16:39:19</publishTime>
     </File>
     <File Include="Views/Account/transact.cshtml">
-      <publishTime>01/02/2017 01:03:59</publishTime>
+      <publishTime>01/05/2017 17:44:45</publishTime>
     </File>
     <File Include="Views/Account/Transacts.cshtml">
       <publishTime>01/03/2017 01:40:02</publishTime>
@@ -608,7 +608,7 @@
       <publishTime>12/31/2016 18:10:19</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/03/2017 23:49:03</publishTime>
+      <publishTime>01/09/2017 02:18:43</publishTime>
     </File>
   </ItemGroup>
 </Project>

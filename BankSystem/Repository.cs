@@ -163,7 +163,6 @@ namespace BankSystem
                 {
                     if (card.UserId == UserId)
                     {
-                        AddPercent(card.AccountId, card.id);
                         result.Add(card);
                     }
                 }
@@ -191,6 +190,16 @@ namespace BankSystem
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
+                foreach (var acc in db.BankAccount)
+                {
+                    if (acc.UserId == UserId)
+                    {
+                        AddPercent(acc.id);
+                    }
+                }
+            }
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
                 List<BankAccount> result = new List<BankAccount>();
                 foreach (var acc in db.BankAccount)
                 {
@@ -201,6 +210,8 @@ namespace BankSystem
                 }
                 return result;
             }
+
+            
         }
 
         static public List<int> GetIdsOfCards()
@@ -216,27 +227,32 @@ namespace BankSystem
             }
         }
 
-        static private void AddPercent(int id, int cardid)
+        static private void AddPercent(int id)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 BankAccount acc = db.BankAccount.Find(id);
-                while (acc.LastChanging.AddDays(1) < DateTime.Now)
+                long ticks = DateTime.Now.Ticks - acc.LastChanging.Ticks;
+                if (ticks > 0)
                 {
-                    double add = acc.money * acc.percent / 365 / 100;
-                    AddMoney(cardid, add);
-                    acc.LastChanging = acc.LastChanging.AddDays(1);
+                    double days = ticks / TimeSpan.TicksPerDay;
+                    double idays = Math.Round(days);
+                    acc.LastChanging.AddDays(idays);
+                    double add = acc.money * acc.percent / 365 / 100 * idays;
+                    acc.money += add;
+                    acc.LastChanging = acc.LastChanging.AddDays(idays);
+                    ChangeAcc(acc.id, acc.LastChanging, acc.money);
                 }
-                ChangeAcc(acc.id, acc.LastChanging);
             }
         }
 
-        static private void ChangeAcc(int id, DateTime date)
+        static private void ChangeAcc(int id, DateTime date, double money)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 BankAccount acc = db.BankAccount.Find(id);
                 acc.LastChanging = date;
+                acc.money = money;
                 db.SaveChanges();
             }
         }

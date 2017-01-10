@@ -1,0 +1,87 @@
+﻿@model IEnumerable<BankSystem.Models.DbModels.BankAccount>
+@using Microsoft.AspNet.Identity
+
+<style>
+    body {
+        color: white;
+        font-size: medium;
+    }
+
+    a {
+        color: lawngreen;
+    }
+
+        a:hover {
+            color: forestgreen;
+        }
+    .field-validation-error {
+        color: yellow;
+    }
+</style>
+<body background="~/Images/back.jpg">
+    <div class="container body-content">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Номер счёта")
+                </th>
+                <th>
+                    @Html.DisplayName("Сумма")
+                </th>
+                <th>
+                    @Html.DisplayName("Процент")
+                </th>
+                <th>
+                    @Html.DisplayName("Вид счёта")
+                </th>
+                <th>
+                    @Html.DisplayName("Последее изменение")
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                double a = Math.Round(item.money, 4);
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => a)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.percent)
+                    </td>
+                    @if (!item.isCredit)
+                    {
+                        <td>
+                            @Html.DisplayName("Депозит")
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayName("Кредит")
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastChanging)
+                    </td>
+                    <td>
+                        @if ((Repository.FindUserById(User.Identity.GetUserId()).isAdmin) && (User.Identity.GetUserId() != item.UserId))
+                        {
+                            @Html.ActionLink("Поменять процент", "ChangePercent", new { id = item.id, UserId = item.UserId })
+                        }
+                        |
+                        @if ((item.isNone) && (item.money == 0))
+                        {
+                            @Html.ActionLink("Удалить счёт", "RemoveBAcc", new { UserId = item.UserId, id = item.id })
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>

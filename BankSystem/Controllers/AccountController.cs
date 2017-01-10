@@ -437,6 +437,10 @@ namespace BankSystem.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            if((!Repository.GetUser(User.Identity.GetUserId()).isAdmin)&&(user.Id != User.Identity.GetUserId()))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewUser model = GetViewModel(user);
             return View(model);
         }
@@ -568,7 +572,10 @@ namespace BankSystem.Controllers
         [HttpPost]
         public ActionResult ChangeAdmin(string userId)
         {
-            
+            if (!Repository.GetUser(User.Identity.GetUserId()).isAdmin)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Repository.ChangeUserAdmin(userId);
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
@@ -576,6 +583,11 @@ namespace BankSystem.Controllers
         [HttpGet]
         public ActionResult CreateNewCard(string userId)
         {
+            ApplicationUser user = Repository.GetUser(userId);
+            if ((!Repository.GetUser(User.Identity.GetUserId()).isAdmin) && (user.Id != User.Identity.GetUserId()))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Card model = new Card();
             model.UserId = userId;
             return View(model);
@@ -628,6 +640,11 @@ namespace BankSystem.Controllers
 
         public ActionResult RemoveCard(string userId, int id)
         {
+            ApplicationUser user = Repository.GetUser(userId);
+            if ((!Repository.GetUser(User.Identity.GetUserId()).isAdmin) && (user.Id != User.Identity.GetUserId()))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Repository.DeleteCard(id);
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
@@ -635,6 +652,11 @@ namespace BankSystem.Controllers
         [HttpGet]
         public ActionResult RemoveBAcc(string userId, int id)
         {
+            ApplicationUser user = Repository.GetUser(userId);
+            if ((!Repository.GetUser(User.Identity.GetUserId()).isAdmin) && (user.Id != User.Identity.GetUserId()) || (Math.Round(Repository.GetAccountById(id).money,4) != 0) || (!Repository.GetAccountById(id).isNone))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Repository.DeleteBankAccount(id);
             return RedirectToAction("UserPage", "Account", new { id = userId });
         }
@@ -764,7 +786,6 @@ namespace BankSystem.Controllers
         [HttpGet]
         public ActionResult Transacts(byte byCard, string UserId = "", int CardId = 0)
         {
-            
             List<DbTransact> model = new List<DbTransact>();
             if (byCard == 1)
                 model = Repository.GetTransactsOfCard(CardId);
