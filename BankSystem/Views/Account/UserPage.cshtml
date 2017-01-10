@@ -193,7 +193,7 @@
             }
         }
         <br /><br /><br />
-        
+        @{ var list = Repository.GetAccsOfUser(Model.id);}
         <p>
             @Html.ActionLink("Создать новую карточку", "CreateNewCard", new { UserId = Model.id })
         </p>
@@ -204,6 +204,6 @@
         {
             @Html.ActionLink("Открыть кредит", "OpenCredit", new { UserId = Model.id })
         }
-        @Html.Partial("Accs", Repository.GetAccsOfUser(Model.id))
+        @Html.Partial("Accs", list)
     </div>
 </body>

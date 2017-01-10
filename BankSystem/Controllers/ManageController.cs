@@ -262,6 +262,7 @@ namespace BankSystem.Controllers
             ViewData["UserId"] = "";
             if (UserId == "")
                 UserId = User.Identity.GetUserId();
+            Repository.DeletePassword(UserId);
             if (ModelState.IsValid)
             {
                 var result = await UserManager.AddPasswordAsync(UserId, model.NewPassword);

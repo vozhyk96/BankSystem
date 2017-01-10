@@ -833,7 +833,6 @@ namespace BankSystem.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            Repository.DeletePassword(UserId);
             ApplicationUser user = Repository.GetUser(UserId);
             return RedirectToAction("SetPassword", "Manage", new { UserId = UserId});
 

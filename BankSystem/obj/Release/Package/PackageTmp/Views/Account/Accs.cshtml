@@ -74,7 +74,7 @@
                             @Html.ActionLink("Поменять процент", "ChangePercent", new { id = item.id, UserId = item.UserId })
                         }
                         |
-                        @if ((item.isNone) && (item.money == 0))
+                        @if ((item.isNone) && (Math.Round(item.money, 4) == 0))
                         {
                             @Html.ActionLink("Удалить счёт", "RemoveBAcc", new { UserId = item.UserId, id = item.id })
                         }
